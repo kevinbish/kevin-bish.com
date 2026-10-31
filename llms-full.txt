@@ -1,6 +1,6 @@
 # Kevin Bishop: full profile
 
-Source: https://www.kevin-bish.com/ · Last updated: 2026-10-26
+Source: https://www.kevin-bish.com/ · Last updated: 2026-10-31
 
 Digitization and trade-data standards specialist at UNECE / UN/CEFACT in Geneva. Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for methodology and technology, and Secretary of ISO/TC 154/JWG 9.
 
@@ -46,36 +46,35 @@ Joint ISO/UNECE working group on information exchange in the supply chain aligne
 
 Location: Barbados
 
+Single point of contact for ICT at a Barbados PR consultancy serving the Government of Barbados and UNICEF, from network infrastructure to first-line support.
 
 ### Teaching Assistant, The University of the West Indies (2019-08 to 2021-02)
 
 Location: Barbados
 
+Taught Computing I and Entrepreneurship for Computer Sciences to classes of 15 to 40 students, covering Java, C++, JavaScript, HTML5 and CSS.
 
 ### Quantitative Research Analyst, UNDP (2013-02 to 2015-12)
 
 Location: Barbados
 
+Consultant analyst producing statistical research for UNDP and UN-Women, including a Caribbean multi-dimensional poverty paper and a gender analysis of OECS poverty.
 
 ### Research Consultant, Caribbean Policy Development Centre (2012-02 to 2013-08)
 
 Location: Barbados
 
-
 ### Research Assistant, University of the West Indies (2010-06 to 2012-09)
 
 Location: Barbados
-
 
 ### Intern, Test & Dispatch Technician, LIME (2010-07 to 2010-08)
 
 Location: Barbados
 
-
 ### Intern, IT Technical Analyst, CIBC FirstCaribbean International Bank (2008-01 to 2008-05)
 
 Location: Barbados
-
 
 ## Education
 
@@ -126,11 +125,17 @@ Location: Barbados
 - Featured: Community Leadership in Urban Safety Governance Assessments (UNODC human impact story): https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html
 - UNCTAD speaker profile: https://unctad.org/speaker/kevin-bishop
 
-## Other
-- Volunteer: Committee Chairperson and grant proposal writer, Deacons Development Project
-- Interests: the beach in summer, swimming, surfing, travel and photography, chess, geopolitics, graphic design, coding
+## Languages
+
+- English (Native speaker)
+
+## Interests
+
+- Outdoors: beach, swimming, surfing, travel, photography
+- Other: chess, geopolitics, graphic design, coding, entrepreneurship
 
 ## Links
+
 - LinkedIn: https://www.linkedin.com/in/kevinbishp
 - GitHub: https://github.com/exiax
 - Instagram: https://www.instagram.com/kevinbish/
