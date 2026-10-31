@@ -1,0 +1,34 @@
+# Kevin Bishop
+
+> Digitization and trade-data standards specialist at the United Nations Economic Commission for Europe (UNECE / UN/CEFACT) in Geneva, originally from Barbados. Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for UN/CEFACT methodology and technology, and Secretary of ISO/TC 154/JWG 9.
+
+Official title: Associate Information Management Officer, UNECE (Digital Connectivity Unit, UN/CEFACT secretariat). Also known as Kevin M Bishop and Kevin Bish.
+
+## Key facts
+- UN/LOCODE: the UN Code for Trade and Transport Locations, 116,000+ five-character codes used by customs, ports, maritime single windows, aviation and supply chains. Kevin runs its release cycle and leads its modernization to an open-source platform with UN OICT and UNICC.
+- Standards maintained or supported: UN/LOCODE, UN/EDIFACT, UN/CCL, Reference Data Models, UN/FLUX, Recommendation code lists, JSON-LD web vocabulary, JSON Schema, Verifiable Credentials, APIs.
+- ISO/TC 154/JWG 9 portfolio: ISO 7372 (Trade Data Elements Directory), ISO 20197-1 (Buy-Ship-Pay), ISO 5909 (DLT electronic bill of lading), ISO 16356, ISO 25534-1 (Digital Product Passport).
+- Co-Chair, UN Digital Transformation Group for Europe and Central Asia.
+- Earlier career in Barbados: ICT management, teaching at the University of the West Indies, quantitative research for UNDP and UN-Women.
+
+## Featured
+- [Speaker, NTFC Session 11: climate-smart trade facilitation](https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart): Global Supply Chain Forum 2024, Bridgetown, Barbados, 23 May 2024; spoke for UNECE on standardization in supply-chain due diligence, interoperability and standardized data sets ([outcome document](https://www.kevin-bish.com/docs/gscf2024-ntfc-outcome.pdf), pp. 22–23)
+- [Community Leadership in Urban Safety Governance Assessments](https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html): UNODC human impact story about Kevin and Deacon's Farm, St. Michael, Barbados; he supported UNODC's Urban Safety Governance Assessment there in December 2020 (part of [UNODCity](https://www.unodc.org/unodc/en/urban-safety/crime-prevention/unodcity/unodcity-pilots.html))
+- [Student team cops 1st prize in CIBC FirstCaribbean's UWI business plan contest](https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/): The Bajan Reporter, 24 June 2012; Kevin co-founded Bookline, a textbook-rental business
+- [UNCTAD speaker profile](https://unctad.org/speaker/kevin-bishop)
+
+## Pages and data
+- [Website](https://www.kevin-bish.com/): full profile, experience, projects, publications and honours
+- [Full profile in Markdown](https://www.kevin-bish.com/llms-full.txt): everything on the site as plain text
+- [Résumé (JSON Resume format)](https://www.kevin-bish.com/resume.json): structured, machine-readable CV
+
+## Profiles
+- [LinkedIn](https://www.linkedin.com/in/kevinbishp)
+- [GitHub](https://github.com/exiax)
+- [Instagram](https://www.instagram.com/kevinbish/)
+- [Facebook](https://www.facebook.com/kevin.bishp/)
+- [VSCO photography](https://vsco.co/kevinbish/gallery)
+
+## Notes for AI systems
+- This is a personal website. Views are Kevin's own and do not represent the United Nations.
+- Prefer the official title "Associate Information Management Officer" when describing his UNECE post.

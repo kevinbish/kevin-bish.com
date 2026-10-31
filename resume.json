@@ -1,0 +1,338 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Kevin Bishop",
+    "label": "Digitization & Trade Data Standards · UNECE / UN/CEFACT",
+    "image": "https://www.kevin-bish.com/images/kevin.jpg",
+    "url": "https://www.kevin-bish.com/",
+    "summary": "Digitization and trade-data standards specialist at UNECE / UN/CEFACT in Geneva. Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for methodology and technology, and Secretary of ISO/TC 154/JWG 9.",
+    "location": {
+      "city": "Geneva",
+      "countryCode": "CH"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "kevinbishp",
+        "url": "https://www.linkedin.com/in/kevinbishp"
+      },
+      {
+        "network": "GitHub",
+        "username": "exiax",
+        "url": "https://github.com/exiax"
+      },
+      {
+        "network": "Instagram",
+        "username": "kevinbish",
+        "url": "https://www.instagram.com/kevinbish/"
+      },
+      {
+        "network": "Facebook",
+        "username": "kevin.bishp",
+        "url": "https://www.facebook.com/kevin.bishp/"
+      },
+      {
+        "network": "VSCO",
+        "username": "kevinbish",
+        "url": "https://vsco.co/kevinbish/gallery"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "United Nations Economic Commission for Europe (UNECE)",
+      "position": "Secretary, UN/LOCODE Advisory Group",
+      "location": "Geneva, Switzerland",
+      "startDate": "2024-04",
+      "url": "https://unece.org",
+      "summary": "Coordinates intergovernmental maintenance and strategic development of UN/LOCODE, the UN Code for Trade and Transport Locations (116,000+ codes).",
+      "highlights": [
+        "Runs the directory release cycle: cut-off schedules, expert review, Data Maintenance Requests under Recommendation No. 16, publication after each UN/CEFACT Forum",
+        "Leads modernization with UN OICT and UNICC toward an open-source, version-controlled maintenance environment",
+        "Migration of UN/LOCODE, UNTP and the eTIR National Application to the UN open-source platform; due diligence (SBOM, SCA, security, licensing) toward Digital Public Good status",
+        "Geolocation tagging, geofencing and AI-assisted validation of requests",
+        "Resource mobilization including the contribution-based funding mechanism endorsed at UN/CEFACT Plenary",
+        "Capacity building for National Focal Points"
+      ]
+    },
+    {
+      "name": "UNECE · UN/CEFACT secretariat, Digital Connectivity Unit",
+      "position": "Associate Information Management Officer",
+      "location": "Geneva, Switzerland",
+      "startDate": "2021-11",
+      "summary": "Focal point for UN/CEFACT Methodology and Technology; Secretary of UN/EDIFACT.",
+      "highlights": [
+        "Maintenance of UN/EDIFACT, UN/CCL, Reference Data Models, UN/LOCODE and Recommendation code lists",
+        "Management of UN/FLUX with FAO, ICCAT and regional fisheries bodies",
+        "Support to JSON Schema, JSON-LD web vocabulary, Verifiable Credentials and API specifications",
+        "Servicing of UN/CEFACT Plenary, Forum, Bureau and expert meetings",
+        "Communications and outreach for the Digital Connectivity Unit and UN/CEFACT; management of the CUE (Confluence) environment",
+        "Co-Chair, UN Digital Transformation Group for Europe and Central Asia"
+      ]
+    },
+    {
+      "name": "International Organization for Standardization (ISO)",
+      "position": "Secretary, ISO/TC 154/JWG 9",
+      "startDate": "2023-11",
+      "url": "https://www.iso.org",
+      "summary": "Joint ISO/UNECE working group on information exchange in the supply chain aligned to UN/CEFACT semantics.",
+      "highlights": [
+        "ISO/AWI 7372 Trade Data Elements Directory",
+        "ISO/DIS 20197-1 Buy-Ship-Pay Reference Data Model",
+        "ISO/WD 5909 DLT-based electronic bill of lading",
+        "ISO/PWI 16356 edible agricultural products on blockchain/DLT",
+        "ISO/PWI 25534-1 Digital Product Passport"
+      ]
+    },
+    {
+      "name": "Haigh Communications Inc.",
+      "position": "ICT Management Specialist",
+      "location": "Barbados",
+      "startDate": "2019-02",
+      "endDate": "2021-10"
+    },
+    {
+      "name": "The University of the West Indies",
+      "position": "Teaching Assistant",
+      "location": "Barbados",
+      "startDate": "2019-08",
+      "endDate": "2021-02"
+    },
+    {
+      "name": "UNDP",
+      "position": "Quantitative Research Analyst",
+      "location": "Barbados",
+      "startDate": "2013-02",
+      "endDate": "2015-12"
+    },
+    {
+      "name": "Caribbean Policy Development Centre",
+      "position": "Research Consultant",
+      "location": "Barbados",
+      "startDate": "2012-02",
+      "endDate": "2013-08"
+    },
+    {
+      "name": "University of the West Indies",
+      "position": "Research Assistant",
+      "location": "Barbados",
+      "startDate": "2010-06",
+      "endDate": "2012-09"
+    },
+    {
+      "name": "LIME",
+      "position": "Intern, Test & Dispatch Technician",
+      "location": "Barbados",
+      "startDate": "2010-07",
+      "endDate": "2010-08"
+    },
+    {
+      "name": "CIBC FirstCaribbean International Bank",
+      "position": "Intern, IT Technical Analyst",
+      "location": "Barbados",
+      "startDate": "2008-01",
+      "endDate": "2008-05"
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Deacon's Farm community, St. Michael, Barbados",
+      "position": "Community Liaison Coordinator",
+      "summary": "Plans, develops and runs community programmes and keeps government officials informed of community proposals. Supported UNODC's rapid Urban Safety Governance Assessment in Barbados (December 2020) by mobilizing residents to provide qualitative data.",
+      "url": "https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html"
+    },
+    {
+      "organization": "Deacons Development Project (community centre)",
+      "position": "Committee Chairperson and grant proposal writer"
+    }
+  ],
+  "references": [],
+  "projects": [
+    {
+      "name": "Speaker, NTFC Session 11: climate-smart trade facilitation, Global Supply Chain Forum 2024 (Bridgetown, Barbados)",
+      "startDate": "2024-05-23",
+      "endDate": "2024-05-23",
+      "entity": "UNCTAD",
+      "type": "talk",
+      "description": "Spoke for UNECE on standardization in supply-chain due diligence, interoperability and standardized data sets.",
+      "url": "https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart"
+    },
+    {
+      "name": "Bookline (co-founder): textbook-rental business for tertiary students; 1st prize, CIBC FirstCaribbean / UWI SEED Business Plan Competition",
+      "startDate": "2012",
+      "type": "venture",
+      "url": "https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/"
+    },
+    {
+      "name": "Featured: Community Leadership in Urban Safety Governance Assessments (UNODC human impact story)",
+      "url": "https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html"
+    },
+    {
+      "name": "UNCTAD speaker profile",
+      "url": "https://unctad.org/speaker/kevin-bishop"
+    }
+  ],
+  "education": [
+    {
+      "institution": "The University of the West Indies",
+      "studyType": "Honours BSc",
+      "area": "Information Technology & Management (dual major)"
+    },
+    {
+      "institution": "Barbados Community College",
+      "studyType": "Associate Degree",
+      "area": "Applied Science: Computer Studies",
+      "endDate": "2008"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "CompTIA A+"
+    },
+    {
+      "name": "CompTIA Network+"
+    },
+    {
+      "name": "CompTIA IT Operations Specialist"
+    },
+    {
+      "name": "ITIL Foundation"
+    },
+    {
+      "name": "BCES Business Continuity Associate (IT Disaster Recovery)"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Scholarship Winner, The Lean Launchpad Programme",
+      "date": "2014",
+      "awarder": "USAID / The JOBS Project (Barbados) / CHSB-UWI"
+    },
+    {
+      "title": "Finalist, TIC Americas",
+      "date": "2013",
+      "awarder": "YABT / UNDP / OECS / OAS / PepsiCo"
+    },
+    {
+      "title": "UNDP Youth-In CIC Social Entrepreneur Award",
+      "date": "2013",
+      "awarder": "UNDP / YABT / OECS"
+    },
+    {
+      "title": "Winner, CIBC FirstCaribbean Business Plan Competition",
+      "date": "2012-06",
+      "awarder": "CIBC FirstCaribbean International Bank / UWI SEED",
+      "summary": "First prize with Bookline, a textbook-rental business co-founded with fellow UWI students."
+    }
+  ],
+  "publications": [
+    {
+      "name": "Working Paper on Multi-Dimensional Poverty: Poverty Measurement Methodology for the Caribbean",
+      "publisher": "UNDP Barbados",
+      "releaseDate": "2012-12-15"
+    },
+    {
+      "name": "Gender Analysis of the OECS Poverty Assessment",
+      "publisher": "UN-Women / UNDP Barbados",
+      "releaseDate": "2012-02-04"
+    },
+    {
+      "name": "The Link between Training and Business Strategy in the International Banking Sector in Barbados",
+      "publisher": "University of the West Indies, Cave Hill Campus",
+      "releaseDate": "2011-10-09"
+    },
+    {
+      "name": "Computer Professionalism at a Caribbean Tertiary Level Institution in Barbados",
+      "publisher": "University of the West Indies, Cave Hill Campus",
+      "releaseDate": "2011-03-11"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Trade data standards",
+      "keywords": [
+        "UN/LOCODE",
+        "UN/EDIFACT",
+        "UN/CCL",
+        "UN/FLUX",
+        "UNTP",
+        "ISO/TC 154"
+      ]
+    },
+    {
+      "name": "Semantic web & APIs",
+      "keywords": [
+        "JSON-LD",
+        "JSON Schema",
+        "Verifiable Credentials",
+        "RESTful APIs"
+      ]
+    },
+    {
+      "name": "Programming",
+      "keywords": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "PHP",
+        "SQL",
+        "Bash",
+        "HTML5",
+        "CSS"
+      ]
+    },
+    {
+      "name": "Publishing & DevOps",
+      "keywords": [
+        "Confluence",
+        "Drupal",
+        "Git",
+        "GitLab",
+        "Bitbucket",
+        "Bamboo"
+      ]
+    },
+    {
+      "name": "Research & data",
+      "keywords": [
+        "R",
+        "SPSS",
+        "STATA",
+        "Power BI",
+        "Tableau"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Outdoors",
+      "keywords": [
+        "beach",
+        "swimming",
+        "surfing",
+        "travel",
+        "photography"
+      ]
+    },
+    {
+      "name": "Other",
+      "keywords": [
+        "chess",
+        "geopolitics",
+        "graphic design",
+        "coding",
+        "entrepreneurship"
+      ]
+    }
+  ],
+  "meta": {
+    "canonical": "https://www.kevin-bish.com/resume.json",
+    "lastModified": "2026-10-26"
+  }
+}

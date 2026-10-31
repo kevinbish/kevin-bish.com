@@ -1,0 +1,138 @@
+# Kevin Bishop: full profile
+
+Source: https://www.kevin-bish.com/ · Last updated: 2026-10-26
+
+Digitization and trade-data standards specialist at UNECE / UN/CEFACT in Geneva. Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for methodology and technology, and Secretary of ISO/TC 154/JWG 9.
+
+## Experience
+
+### Secretary, UN/LOCODE Advisory Group, United Nations Economic Commission for Europe (UNECE) (2024-04 to Present)
+
+Location: Geneva, Switzerland
+
+Coordinates intergovernmental maintenance and strategic development of UN/LOCODE, the UN Code for Trade and Transport Locations (116,000+ codes).
+
+- Runs the directory release cycle: cut-off schedules, expert review, Data Maintenance Requests under Recommendation No. 16, publication after each UN/CEFACT Forum
+- Leads modernization with UN OICT and UNICC toward an open-source, version-controlled maintenance environment
+- Migration of UN/LOCODE, UNTP and the eTIR National Application to the UN open-source platform; due diligence (SBOM, SCA, security, licensing) toward Digital Public Good status
+- Geolocation tagging, geofencing and AI-assisted validation of requests
+- Resource mobilization including the contribution-based funding mechanism endorsed at UN/CEFACT Plenary
+- Capacity building for National Focal Points
+
+### Associate Information Management Officer, UNECE · UN/CEFACT secretariat, Digital Connectivity Unit (2021-11 to Present)
+
+Location: Geneva, Switzerland
+
+Focal point for UN/CEFACT Methodology and Technology; Secretary of UN/EDIFACT.
+
+- Maintenance of UN/EDIFACT, UN/CCL, Reference Data Models, UN/LOCODE and Recommendation code lists
+- Management of UN/FLUX with FAO, ICCAT and regional fisheries bodies
+- Support to JSON Schema, JSON-LD web vocabulary, Verifiable Credentials and API specifications
+- Servicing of UN/CEFACT Plenary, Forum, Bureau and expert meetings
+- Communications and outreach for the Digital Connectivity Unit and UN/CEFACT; management of the CUE (Confluence) environment
+- Co-Chair, UN Digital Transformation Group for Europe and Central Asia
+
+### Secretary, ISO/TC 154/JWG 9, International Organization for Standardization (ISO) (2023-11 to Present)
+
+Joint ISO/UNECE working group on information exchange in the supply chain aligned to UN/CEFACT semantics.
+
+- ISO/AWI 7372 Trade Data Elements Directory
+- ISO/DIS 20197-1 Buy-Ship-Pay Reference Data Model
+- ISO/WD 5909 DLT-based electronic bill of lading
+- ISO/PWI 16356 edible agricultural products on blockchain/DLT
+- ISO/PWI 25534-1 Digital Product Passport
+
+### ICT Management Specialist, Haigh Communications Inc. (2019-02 to 2021-10)
+
+Location: Barbados
+
+
+### Teaching Assistant, The University of the West Indies (2019-08 to 2021-02)
+
+Location: Barbados
+
+
+### Quantitative Research Analyst, UNDP (2013-02 to 2015-12)
+
+Location: Barbados
+
+
+### Research Consultant, Caribbean Policy Development Centre (2012-02 to 2013-08)
+
+Location: Barbados
+
+
+### Research Assistant, University of the West Indies (2010-06 to 2012-09)
+
+Location: Barbados
+
+
+### Intern, Test & Dispatch Technician, LIME (2010-07 to 2010-08)
+
+Location: Barbados
+
+
+### Intern, IT Technical Analyst, CIBC FirstCaribbean International Bank (2008-01 to 2008-05)
+
+Location: Barbados
+
+
+## Education
+
+- Honours BSc, Information Technology & Management (dual major), The University of the West Indies
+- Associate Degree, Applied Science: Computer Studies, Barbados Community College (2008)
+
+## Certifications
+
+- CompTIA A+
+- CompTIA Network+
+- CompTIA IT Operations Specialist
+- ITIL Foundation
+- BCES Business Continuity Associate (IT Disaster Recovery)
+
+## Publications
+
+- Working Paper on Multi-Dimensional Poverty: Poverty Measurement Methodology for the Caribbean. UNDP Barbados, 2012-12-15.
+- Gender Analysis of the OECS Poverty Assessment. UN-Women / UNDP Barbados, 2012-02-04.
+- The Link between Training and Business Strategy in the International Banking Sector in Barbados. University of the West Indies, Cave Hill Campus, 2011-10-09.
+- Computer Professionalism at a Caribbean Tertiary Level Institution in Barbados. University of the West Indies, Cave Hill Campus, 2011-03-11.
+
+## Honours and awards
+
+- Scholarship Winner, The Lean Launchpad Programme (USAID / The JOBS Project (Barbados) / CHSB-UWI, 2014)
+- Finalist, TIC Americas (YABT / UNDP / OECS / OAS / PepsiCo, 2013)
+- UNDP Youth-In CIC Social Entrepreneur Award (UNDP / YABT / OECS, 2013)
+- Winner, CIBC FirstCaribbean Business Plan Competition (CIBC FirstCaribbean International Bank / UWI SEED, 2012-06)
+- Qualifier, United Nations Young Professionals Programme
+
+## Skills
+
+- Trade data standards: UN/LOCODE, UN/EDIFACT, UN/CCL, UN/FLUX, UNTP, ISO/TC 154
+- Semantic web & APIs: JSON-LD, JSON Schema, Verifiable Credentials, RESTful APIs
+- Programming: Python, Java, JavaScript, PHP, SQL, Bash, HTML5, CSS
+- Publishing & DevOps: Confluence, Drupal, Git, GitLab, Bitbucket, Bamboo
+- Research & data: R, SPSS, STATA, Power BI, Tableau
+
+## Volunteer and community
+
+- Community Liaison Coordinator, Deacon's Farm community, St. Michael, Barbados: Plans, develops and runs community programmes and keeps government officials informed of community proposals. Supported UNODC's rapid Urban Safety Governance Assessment in Barbados (December 2020) by mobilizing residents to provide qualitative data.
+- Committee Chairperson and grant proposal writer, Deacons Development Project (community centre)
+
+## Featured
+
+- Speaker, NTFC Session 11: climate-smart trade facilitation, Global Supply Chain Forum 2024 (Bridgetown, Barbados): https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart
+- Bookline (co-founder): textbook-rental business for tertiary students; 1st prize, CIBC FirstCaribbean / UWI SEED Business Plan Competition: https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/
+- Featured: Community Leadership in Urban Safety Governance Assessments (UNODC human impact story): https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html
+- UNCTAD speaker profile: https://unctad.org/speaker/kevin-bishop
+
+## Other
+- Volunteer: Committee Chairperson and grant proposal writer, Deacons Development Project
+- Interests: the beach in summer, swimming, surfing, travel and photography, chess, geopolitics, graphic design, coding
+
+## Links
+- LinkedIn: https://www.linkedin.com/in/kevinbishp
+- GitHub: https://github.com/exiax
+- Instagram: https://www.instagram.com/kevinbish/
+- Facebook: https://www.facebook.com/kevin.bishp/
+- VSCO: https://vsco.co/kevinbish/gallery
+- Website: https://www.kevin-bish.com/
