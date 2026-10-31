@@ -89,6 +89,7 @@ Location: Barbados
 - CompTIA IT Operations Specialist
 - ITIL Foundation
 - BCES Business Continuity Associate (IT Disaster Recovery)
+- NYBI Diploma, IT Engineering & Security
 
 ## Publications
 

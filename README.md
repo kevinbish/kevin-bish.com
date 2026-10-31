@@ -10,9 +10,10 @@ css/style.css       all styles (dark grey editor theme + light mode)
 js/main.js          gutter line numbers, skyline/signal, skill rings, LOCODE Hunter, terminal
 images/kevin.jpg    portrait
 images/mascot.gif   pixel mascot from the original site
+images/og-card.png  1200x630 social share card (Open Graph / Twitter)
 favicon.svg         {KB} tab icon
 robots.txt          lets search engines and AI crawlers in; points to the sitemap
-sitemap.xml         list of URLs for search engines
+sitemap.xml         the page URL for search engines
 llms.txt            short Markdown profile for AI assistants (llmstxt.org convention)
 llms-full.txt       the whole profile as plain Markdown
 resume.json         machine-readable CV in JSON Resume format (jsonresume.org)
@@ -27,7 +28,7 @@ address in index.html, llms.txt, llms-full.txt, resume.json, robots.txt and site
 After going live:
 - Check the structured data at https://search.google.com/test/rich-results and https://validator.schema.org
 - Submit sitemap.xml in Google Search Console and Bing Webmaster Tools
-- When you change your CV, update resume.json and the JSON-LD block too, so they match the page
+- When you change your CV, update resume.json, llms-full.txt and the JSON-LD block too, so they match the page, and bump the date in sitemap.xml and the JSON-LD dateModified
 
 Fonts (Open Sans, Fira Code) load from Google Fonts. Everything else is local.
 
