@@ -308,3 +308,18 @@ kbd{font:12px var(--mono);border:1px solid var(--rule);border-bottom-width:2px;p
 .desc .sum{color:var(--fg);font-size:15.5px;margin:0 0 10px}
 .desc details.more{border-top:0;margin-top:0}
 .desc details.more>summary{padding:4px 0 10px}
+
+/* last-signal stamp: latest commit on main, in a bat-signal style */
+.stamp{display:flex;align-items:center;gap:12px;margin:18px 0 0;font:400 21px/1 "Bebas Neue",Impact,"Arial Narrow",sans-serif;letter-spacing:.14em;color:#ffe28c;text-transform:uppercase}
+.stamp[hidden]{display:none}
+.stamp .oval{width:52px;height:29px;flex:none;overflow:visible;filter:drop-shadow(0 0 6px rgba(255,226,140,.55));animation:beam 3.2s ease-in-out infinite}
+.stamp .oval ellipse{fill:#ffd54a;stroke:#1b1b1b;stroke-width:2}
+.stamp .oval use{fill:#1b1b1b}
+.stamp .st-k{color:var(--muted)}
+.stamp a{color:inherit;text-decoration:none;text-shadow:0 0 10px rgba(255,226,140,.35);animation:flick 5s steps(1) infinite}
+.stamp a:hover{text-decoration:underline}
+.stamp .st-sep{opacity:.6}
+@keyframes beam{50%{filter:drop-shadow(0 0 14px rgba(255,226,140,.95))}}
+@keyframes flick{0%,92%,96%,100%{opacity:1}93%,95%{opacity:.35}}
+:root[data-theme="light"] .stamp{color:#8a5a00}
+:root[data-theme="light"] .stamp a{text-shadow:none}

@@ -320,4 +320,24 @@
     if(e.key==='Escape'){if(!term.hidden)closeTerm();else if(sigOn)lightSignal(false);return;}
     if(!typing&&(e.key==='`'||e.key==='~')){e.preventDefault();term.hidden||termState()==='min'?openTerm():closeTerm();}
   });
+  /* ---------- last signal: latest commit on main, from the public GitHub API ---------- */
+  (function(){
+    const el=document.getElementById('stamp'); if(!el) return;
+    const KEY='lastSignal.v1', TTL=10*60*1000;
+    function show(c){
+      const d=new Date(c.date);
+      document.getElementById('stampDate').dateTime=c.date;
+      document.getElementById('stampDate').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase()+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' '+(Intl.DateTimeFormat().resolvedOptions().timeZone||'');
+      document.getElementById('stampSha').textContent='COMMIT '+c.sha.slice(0,7);
+      const a=document.getElementById('stampLink'); a.href=c.url; a.title=c.msg;
+      el.hidden=false;
+    }
+    try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null'); if(s&&Date.now()-s.t<TTL){show(s.c);return;}}catch(e){}
+    fetch('https://api.github.com/repos/kevinbish/kevin-bish.com/commits/main',{headers:{Accept:'application/vnd.github+json'}})
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(j=>{const c={sha:j.sha,date:j.commit.committer.date,url:j.html_url,msg:j.commit.message.split('\n')[0]};
+        try{sessionStorage.setItem(KEY,JSON.stringify({t:Date.now(),c}));}catch(e){}
+        show(c);})
+      .catch(()=>{});
+  })();
 })();
