@@ -323,3 +323,5 @@ kbd{font:12px var(--mono);border:1px solid var(--rule);border-bottom-width:2px;p
 @keyframes flick{0%,92%,96%,100%{opacity:1}93%,95%{opacity:.35}}
 :root[data-theme="light"] .stamp{color:#8a5a00}
 :root[data-theme="light"] .stamp a{text-shadow:none}
+.stamp .dec{display:inline-block;white-space:pre}
+.stamp .u{font-style:normal;opacity:.45}
