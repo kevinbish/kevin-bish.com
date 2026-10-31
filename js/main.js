@@ -330,7 +330,53 @@
       document.getElementById('stampDate').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase()+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' '+(Intl.DateTimeFormat().resolvedOptions().timeZone||'');
       document.getElementById('stampSha').textContent='COMMIT '+c.sha.slice(0,7);
       const a=document.getElementById('stampLink'); a.href=c.url; a.title=c.msg;
+      a.setAttribute('aria-label','Last signal: '+document.getElementById('stampDate').textContent+', '+document.getElementById('stampSha').textContent);
       el.hidden=false;
+      if(reduce) return;
+      prime();
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();decode();}},{threshold:.9});
+        io.observe(el);
+      } else decode();
+      el.addEventListener('mouseenter',decode);
+    }
+
+    /* decipher effect: characters resolve left to right out of scrambled glyphs */
+    const CH='ABCDEF0123456789#$%&*?<>/', TICK=36;
+    let segs=null, running=false;
+    function grab(){
+      if(segs) return segs;
+      segs=[el.querySelector('.st-k'),document.getElementById('stampDate'),document.getElementById('stampSha')].map(e=>({e,t:e.textContent}));
+      return segs;
+    }
+    function frame(tick,at){
+      let k=0;
+      grab().forEach(s=>{
+        let h='';
+        for(const ch of s.t){
+          const live=/[A-Z0-9]/.test(ch), i=k++;
+          h+= !live||tick>=at[i] ? ch : '<i class="u">'+CH[Math.random()*CH.length|0]+'</i>';
+        }
+        s.e.innerHTML=h;
+      });
+    }
+    function lock(on){grab().forEach(s=>{s.e.classList.toggle('dec',on); s.e.style.minWidth=on?s.w+'px':'';});}
+    function prime(){ frame(0,grab().flatMap(s=>[...s.t].map(()=>1e9))); }
+    function decode(){
+      if(running) return; running=true;
+      /* measure the real text at its final size (fonts are loaded by now), then hold that width while it scrambles */
+      grab().forEach(s=>{s.e.textContent=s.t; s.e.classList.remove('dec'); s.e.style.minWidth=''; s.w=s.e.getBoundingClientRect().width;});
+      lock(true);
+      const n=grab().reduce((a,s)=>a+[...s.t].length,0);
+      const at=Array.from({length:n},(_,i)=>Math.round(i*.55+Math.random()*5)+3);
+      let tick=0;
+      const id=setInterval(()=>{
+        frame(tick++,at);
+        if(tick>Math.max(...at)+1){
+          clearInterval(id);
+          grab().forEach(s=>{s.e.textContent=s.t;}); lock(false); running=false;
+        }
+      },TICK);
     }
     try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null'); if(s&&Date.now()-s.t<TTL){show(s.c);return;}}catch(e){}
     fetch('https://api.github.com/repos/kevinbish/kevin-bish.com/commits/main',{headers:{Accept:'application/vnd.github+json'}})
