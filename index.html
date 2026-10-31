@@ -391,9 +391,8 @@
   </script>
   <!-- /machine-readable -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+  <link rel="preload" href="fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/fira-code-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -421,7 +420,7 @@
   <div class="sig-hint" id="sigHint" hidden>signal.lit = true; <span class="cm">// click anywhere or press Esc to put it out</span></div>
   <div class="wrap top">
     <div class="who">
-      <div class="photo"><img src="images/kevin.jpg" alt="Kevin Bishop"></div>
+      <div class="photo"><picture><source srcset="images/kevin.webp" type="image/webp"><img src="images/kevin.jpg" alt="Kevin Bishop" width="227" height="227"></picture></div>
       <div class="name"><div class="first">KEVIN</div><div class="last">BISHOP</div></div>
     </div>
     <div class="overview">
@@ -429,7 +428,7 @@
       <div class="tagline">Digitization &amp; Standards · Researcher · Technologist &amp; Coder</div>
       <p>Kevin works on the reference data that global trade runs on. At UNECE he is Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for methodology and technology at UN/CEFACT, and Secretary of the ISO/UNECE joint working group ISO/TC 154/JWG 9. Before Geneva, he spent a decade in Barbados building ICT systems, researching poverty and gender for UNDP, and teaching computing at the University of the West Indies.</p>
       <div class="code" aria-label="Quick facts and section links">
-        <div class="avatar"><button class="slot" id="avatar" title="Play LOCODE Hunter" aria-label="Play LOCODE Hunter"><img src="images/mascot.gif" alt="Pixel-art mascot from Kevin's original website"></button><span class="cm">// the original mascot, still on duty.<br>// click him to play.</span></div>
+        <div class="avatar"><button class="slot" id="avatar" title="Play LOCODE Hunter" aria-label="Play LOCODE Hunter"><img src="images/mascot.gif" alt="Pixel-art mascot from Kevin's original website" width="288" height="432"></button><span class="cm">// the original mascot, still on duty.<br>// click him to play.</span></div>
         <span class="l" data-gi="user"><b class="v">name</b> = <span class="s">"Kevin M Bishop"</span>;</span>
         <span class="l"><b class="v">title[4]</b> = <span class="s">"standards, technology, research and other interests."</span>;</span>
         <span class="l"><b class="v">base</b> = <span class="s">"Palais des Nations, Geneva"</span>; <span class="cm">// via Barbados</span></span>
@@ -590,8 +589,11 @@
         <span class="l i"><b class="v">desc</b> =</span>
       </div>
       <div class="desc">
+        <p class="sum">Single point of contact for ICT at a Barbados PR consultancy serving the Government of Barbados and UNICEF, from network infrastructure to first-line support.</p>
+        <details class="more"><summary>full_description();</summary>
         <p>Haigh Communications is a public and private-sector PR consultancy whose clients include the Government of Barbados, the Office of the Prime Minister, the Ministries of the Environment and Education, the Barbados Water Authority, Barbados Tourism Investment Inc. and UNICEF. Kevin managed the firm's ICT from its founding in 2019, as the single point of contact for technology.</p>
         <p>The role covered network and system infrastructure, user desktops and devices, first-line incident response and day-to-day ICT operations, delivered both in person and remotely. It built on his independent IT consulting with clients across the region, where he developed service-level agreements, IT strategy and infrastructure plans, and handled migrations, web development and general support.</p>
+        </details>
       </div>
       <div class="code"><span class="l">}</span></div>
     </div></li>
@@ -604,8 +606,11 @@
         <span class="l i"><b class="v">desc</b> =</span>
       </div>
       <div class="desc">
+        <p class="sum">Taught Computing I and Entrepreneurship for Computer Sciences to classes of 15 to 40 students, covering Java, C++, JavaScript, HTML5 and CSS.</p>
+        <details class="more"><summary>full_description();</summary>
         <p>Kevin taught Computing I and Entrepreneurship for Computer Sciences, working under a senior lecturer to deliver courses that count toward the bachelor's degree. He independently lectured and supervised classes of 15 to 40 students, covering programming concepts in Java, C++, JavaScript, HTML5 and CSS.</p>
         <p>Alongside teaching, he prepared lesson plans, lab assignments and course materials, graded work, and mentored students in groups and one to one. The entrepreneurship side drew directly on his own record in Caribbean business-plan and innovation competitions.</p>
+        </details>
       </div>
       <div class="code"><span class="l">}</span></div>
     </div></li>
@@ -618,8 +623,11 @@
         <span class="l i"><b class="v">desc</b> =</span>
       </div>
       <div class="desc">
+        <p class="sum">Consultant analyst producing statistical research for UNDP and UN-Women, including a Caribbean multi-dimensional poverty paper and a gender analysis of OECS poverty.</p>
+        <details class="more"><summary>full_description();</summary>
         <p>As a consultant to UNDP, Kevin wrote analysis programs and produced statistical research to specific terms of reference, feeding evidence into policy development for Barbados and the Eastern Caribbean.</p>
         <p>His UNDP work includes a working paper on a multi-dimensional poverty measurement methodology for the Caribbean, which argues for measuring deprivation across several dimensions instead of income alone, and a gender analysis of the OECS poverty assessment with UN-Women.</p>
+        </details>
       </div>
       <div class="code"><span class="l i"><b class="v">tech[]</b> = {SPSS, R, STATA, Microsoft Excel, SharePoint};</span><span class="l">}</span></div>
     </div></li>

@@ -89,21 +89,24 @@
       "position": "ICT Management Specialist",
       "location": "Barbados",
       "startDate": "2019-02",
-      "endDate": "2021-10"
+      "endDate": "2021-10",
+      "summary": "Single point of contact for ICT at a Barbados PR consultancy serving the Government of Barbados and UNICEF, from network infrastructure to first-line support."
     },
     {
       "name": "The University of the West Indies",
       "position": "Teaching Assistant",
       "location": "Barbados",
       "startDate": "2019-08",
-      "endDate": "2021-02"
+      "endDate": "2021-02",
+      "summary": "Taught Computing I and Entrepreneurship for Computer Sciences to classes of 15 to 40 students, covering Java, C++, JavaScript, HTML5 and CSS."
     },
     {
       "name": "UNDP",
       "position": "Quantitative Research Analyst",
       "location": "Barbados",
       "startDate": "2013-02",
-      "endDate": "2015-12"
+      "endDate": "2015-12",
+      "summary": "Consultant analyst producing statistical research for UNDP and UN-Women, including a Caribbean multi-dimensional poverty paper and a gender analysis of OECS poverty."
     },
     {
       "name": "Caribbean Policy Development Centre",
@@ -226,6 +229,9 @@
       "date": "2012-06",
       "awarder": "CIBC FirstCaribbean International Bank / UWI SEED",
       "summary": "First prize with Bookline, a textbook-rental business co-founded with fellow UWI students."
+    },
+    {
+      "title": "Qualifier, United Nations Young Professionals Programme"
     }
   ],
   "publications": [
@@ -336,6 +342,6 @@
   ],
   "meta": {
     "canonical": "https://www.kevin-bish.com/resume.json",
-    "lastModified": "2026-10-26"
+    "lastModified": "2026-10-31"
   }
 }

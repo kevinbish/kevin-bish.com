@@ -1,3 +1,7 @@
+/* Self-hosted fonts (latin subset): Open Sans and Fira Code are variable fonts, so one file covers every weight used. Licences: fonts/LICENSES.md */
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:300 700;font-stretch:100%;font-display:swap;src:url(../fonts/open-sans-latin.woff2) format("woff2")}
+@font-face{font-family:"Fira Code";font-style:normal;font-weight:400 600;font-display:swap;src:url(../fonts/fira-code-latin.woff2) format("woff2")}
+@font-face{font-family:"Bebas Neue";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/bebas-neue-latin.woff2) format("woff2")}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{margin:0}
 img{max-width:100%}

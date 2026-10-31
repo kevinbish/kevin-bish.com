@@ -1,6 +1,7 @@
 # kevin-bish.com: personal website
 
-A static site with no build step. Upload the folder as-is to any web host.
+A static site with no build step on the host. Upload the folder as-is to any web host.
+(A small optional script, `scripts/build.py`, keeps the machine-readable files in sync with `resume.json`; see below.)
 
 ## Files
 
@@ -8,15 +9,18 @@ A static site with no build step. Upload the folder as-is to any web host.
 index.html          the page
 css/style.css       all styles (dark grey editor theme + light mode)
 js/main.js          gutter line numbers, skyline/signal, skill rings, LOCODE Hunter, terminal
-images/kevin.jpg    portrait
+images/kevin.webp   portrait (served first; WebP, about 8 KB)
+images/kevin.jpg    portrait fallback, also used for og:image and the JSON-LD
 images/mascot.gif   pixel mascot from the original site
 images/og-card.png  1200x630 social share card (Open Graph / Twitter)
 favicon.svg         {KB} tab icon
+fonts/              self-hosted Open Sans, Fira Code and Bebas Neue (latin WOFF2) + LICENSES.md
+scripts/build.py    regenerates llms-full.txt, sitemap.xml and parts of the JSON-LD from resume.json
 robots.txt          lets search engines and AI crawlers in; points to the sitemap
 sitemap.xml         the page URL for search engines
-llms.txt            short Markdown profile for AI assistants (llmstxt.org convention)
-llms-full.txt       the whole profile as plain Markdown
-resume.json         machine-readable CV in JSON Resume format (jsonresume.org)
+llms.txt            short Markdown profile for AI assistants (llmstxt.org convention); hand-written
+llms-full.txt       the whole profile as plain Markdown; generated from resume.json
+resume.json         machine-readable CV in JSON Resume format (jsonresume.org); the source of truth
 ```
 
 `index.html` also carries schema.org JSON-LD (Person, ProfilePage, publications) in its `<head>`,
@@ -28,9 +32,18 @@ address in index.html, llms.txt, llms-full.txt, resume.json, robots.txt and site
 After going live:
 - Check the structured data at https://search.google.com/test/rich-results and https://validator.schema.org
 - Submit sitemap.xml in Google Search Console and Bing Webmaster Tools
-- When you change your CV, update resume.json, llms-full.txt and the JSON-LD block too, so they match the page, and bump the date in sitemap.xml and the JSON-LD dateModified
 
-Fonts (Open Sans, Fira Code) load from Google Fonts. Everything else is local.
+## Changing your CV
+
+1. Edit `resume.json` (and set `meta.lastModified` to today's date).
+2. Run `python3 scripts/build.py`. It rewrites `llms-full.txt`, `sitemap.xml` and, in `index.html`,
+   the JSON-LD `dateModified`, certificates and publication entries. `--check` reports whether anything
+   is out of date without changing files (handy for a future CI check).
+3. Update the visible text in `index.html` by hand, and `llms.txt` if the headline facts changed.
+   The script does not touch the page text, the rest of the JSON-LD, or `llms.txt`.
+
+Everything, including the fonts, is served from this folder; the page makes no third-party requests
+except the optional GitHub call for the footer "last signal" stamp.
 
 ## Deploy options
 
