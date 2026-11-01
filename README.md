@@ -87,6 +87,11 @@ The "compose_message()" link in Contact Me, and the `mail` terminal command both
 It builds a ready-to-send email and opens it in the visitor's mail app (a `mailto:` link) addressed to the address in `MAIL_TO` near the top of that code. The address is assembled in JavaScript so it is not in the page text, and the form carries an invisible trap field and a minimum-time check for when a sending service is added later. Nothing is sent from the server, so there is no delivery to monitor; a visitor with no mail app gets copy buttons instead.
 To change the address, edit `MAIL_TO` in `js/main.js`.
 
+## Bat cursor and GitHub activity
+
+- The bat cursor (end of `js/main.js`, styles at the end of `css/style.css`) only runs for a mouse or trackpad (`hover: hover` and `pointer: fine`): touch devices keep their normal behaviour. The real cursor comes back over text fields and the embedded Spotify player, and with "reduce motion" the bat follows without trailing or tilt.
+- The GitHub activity section (`#activity`) draws the last 12 months of public contributions as a bat-signal heatmap. The data comes from the public service github-contributions-api.jogruber.de when the page loads (cached for an hour in the visitor's browser); if it cannot be reached the section shows a short message instead. To change the account, edit the `API` address in `js/main.js` and the profile link in `index.html`.
+
 ## Printing and no-JavaScript
 
 - Printing or saving as PDF switches to a light layout, opens every collapsed section so the full text is on paper, and hides the controls, the skills circles, the music card and the footer stamp (`@media print` at the end of `css/style.css`, plus a small `beforeprint` handler in `js/main.js`).

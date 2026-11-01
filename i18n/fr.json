@@ -258,7 +258,13 @@
   "Minimise terminal": "Réduire le terminal",
   "Maximise": "Agrandir",
   "Maximise terminal": "Agrandir le terminal",
-  "Terminal command": "Commande du terminal"
+  "Terminal command": "Commande du terminal",
+  "GitHub Activity": "Activité GitHub",
+  "// the batcave logs": "// les journaux de la Batcave",
+  "A year of public GitHub activity, lit like the signal: the brighter the square, the busier the day.": "Un an d’activité publique sur GitHub, éclairée comme le signal : plus le carré est lumineux, plus la journée a été chargée.",
+  "Less": "Moins",
+  "More": "Plus",
+  "// loading the signal log…": "// chargement du journal du signal…"
  },
  "js": {
   "LOCATION CODES": "CODES DE LIEUX",
@@ -367,6 +373,14 @@
   "COMMIT {0}": "COMMIT {0}",
   "Last signal: {0}, {1}": "Dernier signal : {0}, {1}",
   "// my playlist: click to load the Spotify player": "// ma playlist : cliquez pour charger le lecteur Spotify",
-  "Play my playlist (nothing loads from Spotify until you click)": "Écouter ma playlist (rien n’est chargé depuis Spotify avant votre clic)"
+  "Play my playlist (nothing loads from Spotify until you click)": "Écouter ma playlist (rien n’est chargé depuis Spotify avant votre clic)",
+  "// signal lost: could not reach the contributions service.": "// signal perdu : impossible de joindre le service des contributions.",
+  "// in the last 12 months": "// ces 12 derniers mois",
+  "// days in a row": "// jours d’affilée",
+  "// in a single day": "// en une seule journée",
+  "GitHub contribution graph: {0} contributions in the last year": "Graphique des contributions GitHub : {0} contributions sur la dernière année",
+  "No contributions on {0}": "Aucune contribution le {0}",
+  "1 contribution on {0}": "1 contribution le {0}",
+  "{0} contributions on {1}": "{0} contributions le {1}"
  }
 }

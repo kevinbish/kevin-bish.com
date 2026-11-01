@@ -258,7 +258,13 @@
   "Minimise terminal": "Свернуть терминал",
   "Maximise": "Развернуть",
   "Maximise terminal": "Развернуть терминал",
-  "Terminal command": "Команда терминала"
+  "Terminal command": "Команда терминала",
+  "GitHub Activity": "Активность на GitHub",
+  "// the batcave logs": "// журналы Бэтпещеры",
+  "A year of public GitHub activity, lit like the signal: the brighter the square, the busier the day.": "Год публичной активности на GitHub, освещённый, как сигнал: чем ярче квадрат, тем насыщеннее был день.",
+  "Less": "Меньше",
+  "More": "Больше",
+  "// loading the signal log…": "// загрузка журнала сигнала…"
  },
  "js": {
   "LOCATION CODES": "КОДЫ МЕСТ",
@@ -367,6 +373,14 @@
   "COMMIT {0}": "COMMIT {0}",
   "Last signal: {0}, {1}": "Последний сигнал: {0}, {1}",
   "// my playlist: click to load the Spotify player": "// мой плейлист: щёлкните, чтобы загрузить плеер Spotify",
-  "Play my playlist (nothing loads from Spotify until you click)": "Слушать мой плейлист (ничего не загружается из Spotify, пока вы не щёлкнете)"
+  "Play my playlist (nothing loads from Spotify until you click)": "Слушать мой плейлист (ничего не загружается из Spotify, пока вы не щёлкнете)",
+  "// signal lost: could not reach the contributions service.": "// сигнал потерян: не удалось связаться со службой данных о вкладе.",
+  "// in the last 12 months": "// за последние 12 месяцев",
+  "// days in a row": "// дней подряд",
+  "// in a single day": "// за один день",
+  "GitHub contribution graph: {0} contributions in the last year": "График вклада на GitHub: вклад за последний год — {0}",
+  "No contributions on {0}": "Вклад за {0}: 0",
+  "1 contribution on {0}": "Вклад за {0}: 1",
+  "{0} contributions on {1}": "Вклад за {1}: {0}"
  }
 }

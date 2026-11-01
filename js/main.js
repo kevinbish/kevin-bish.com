@@ -236,7 +236,7 @@
 
   /* ================= TERMINAL ================= */
   const term=$('term'),tOut=$('tOut'),tIn=$('tIn');let hist=[],hi=0,termOpened=false;
-  const SECTIONS=['skills','experience','education','projects','ict','publications','honours','featured','additional'];
+  const SECTIONS=['skills','experience','education','projects','activity','ict','publications','honours','featured','additional'];
   function line(txt,cls){const d=document.createElement('div');d.className=cls||'o';d.textContent=txt;tOut.appendChild(d);tOut.scrollTop=tOut.scrollHeight;return d;}
   function setTermState(st2){term.classList.toggle('min',st2==='min');term.classList.toggle('max',st2==='max');
     $('tState').textContent=st2==='min'?T('minimised · click to restore'):st2==='max'?T('maximised'):'';
@@ -470,6 +470,74 @@
       frame.textContent=''; frame.append(f,x,document.createTextNode(' '),o); frame.hidden=false; m.classList.add('open','playing');
     });
   })();
+  /* ---------- bat cursor: a small bat trails the mouse (mouse and trackpad only) ---------- */
+  (function(){
+    if(!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const bat=document.createElement('div'),dot=document.createElement('div');
+    bat.className='cur';dot.className='cur-dot';bat.setAttribute('aria-hidden','true');dot.setAttribute('aria-hidden','true');
+    bat.innerHTML='<svg viewBox="0 0 60 26"><use href="#bat"/></svg>';
+    document.body.append(bat,dot);
+    let x=-100,y=-100,bx=x,by=y,vis=false,raf=0;
+    const set=(c,on)=>root.classList.toggle(c,on);
+    function loop(){
+      const k=reduce?1:.2;bx+=(x-bx)*k;by+=(y-by)*k;
+      const tilt=reduce?0:Math.max(-28,Math.min(28,(x-bx)*.9));
+      bat.style.transform='translate3d('+bx+'px,'+by+'px,0) translate(-50%,-50%) rotate('+tilt+'deg)';
+      dot.style.transform='translate3d('+x+'px,'+y+'px,0) translate(-50%,-50%)';
+      raf=(Math.abs(x-bx)>.1||Math.abs(y-by)>.1)?requestAnimationFrame(loop):0;}
+    addEventListener('pointermove',e=>{
+      if(e.pointerType!=='mouse'){vis=false;set('cur-on',false);return;}
+      x=e.clientX;y=e.clientY;if(!vis){vis=true;bx=x;by=y;set('cur-on',true);}
+      const t=e.target,isEl=t&&t.closest;
+      const text=isEl&&(t.closest('input,textarea,select,[contenteditable="true"]')||t.tagName==='IFRAME');
+      const hot=isEl&&t.closest('a,button,summary,label,[role="button"],.ring');
+      set('cur-text',!!text);set('cur-hot',!!hot&&!text);
+      if(!raf)raf=requestAnimationFrame(loop);},{passive:true});
+    document.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')set('cur-down',true);});
+    document.addEventListener('pointerup',()=>set('cur-down',false));
+    document.documentElement.addEventListener('mouseleave',()=>{vis=false;set('cur-on',false);set('cur-down',false);});
+  })();
+
+  /* ---------- GitHub activity: the public contributions calendar, lit like the signal ---------- */
+  (function(){
+    const grid=$('ghGrid');if(!grid)return;
+    const API='https://github-contributions-api.jogruber.de/v4/kevinbish?y=last',KEY='ghc.v1',TTL=3600000;
+    const msg=$('ghMsg'),box=$('gh'),tip=$('ghTip');
+    const fmt=iso=>new Date(iso+'T00:00:00').toLocaleDateString(LOCALE,{day:'numeric',month:'short',year:'numeric'});
+    msg.textContent=T('// loading the signal log…');
+    function fail(){msg.textContent=T('// signal lost: could not reach the contributions service.');msg.hidden=false;box.classList.add('gh-fail');}
+    function render(data){
+      const days=((data&&data.contributions)||[]).filter(d=>d&&d.date);
+      if(!days.length)return fail();
+      const pad=new Date(days[0].date+'T00:00:00').getDay(),cells=Array(pad).fill(null).concat(days),weeks=Math.ceil(cells.length/7);
+      let total=0,best=0,longest=0,run=0,cur=0;
+      days.forEach(d=>{total+=d.count;best=Math.max(best,d.count);if(d.count>0){run++;longest=Math.max(longest,run);}else run=0;});
+      let i=days.length-1;if(days[i].count===0)i--;for(;i>=0&&days[i].count>0;i--)cur++;
+      const line=(k,v,c)=>'<span class="l"><b class="v">'+k+'</b> = <span class="s">'+NUM(v)+'</span>;'+(c?' <span class="cm">'+c+'</span>':'')+'</span>';
+      $('ghStats').innerHTML=line('contributions',total,T('// in the last 12 months'))+line('longest_streak',longest,T('// days in a row'))+line('current_streak',cur)+line('busiest_day',best,T('// in a single day'));
+      const lvl=d=>d.level!=null?d.level:(d.count===0?0:d.count<4?1:d.count<8?2:d.count<12?3:4);
+      grid.innerHTML=cells.map((d,n)=>d?'<i class="d lv'+lvl(d)+'" data-i="'+(n-pad)+'" style="--c:'+Math.floor(n/7)+'"></i>':'<i class="d x"></i>').join('');
+      grid.style.gridTemplateColumns='repeat('+weeks+',var(--s))';
+      grid.setAttribute('aria-label',T('GitHub contribution graph: {0} contributions in the last year',NUM(total)));
+      const mo=[];let last=-1;
+      for(let w=0;w<weeks;w++){const d=cells.slice(w*7,w*7+7).find(Boolean);if(!d)continue;const m=new Date(d.date+'T00:00:00').getMonth();
+        if(m!==last){if(w<weeks-2||last===-1)mo.push('<span style="grid-column:'+(w+1)+' / span 4">'+new Date(d.date+'T00:00:00').toLocaleDateString(LOCALE,{month:'short'})+'</span>');last=m;}}
+      $('ghMonths').style.gridTemplateColumns='repeat('+weeks+',var(--s))';$('ghMonths').innerHTML=mo.join('');
+      $('ghDays').innerHTML=[0,1,2,3,4,5,6].map(n=>'<span>'+(n%2===1?new Date(2024,0,7+n).toLocaleDateString(LOCALE,{weekday:'short'}):'')+'</span>').join('');
+      msg.hidden=true;$('ghScroll').scrollLeft=$('ghScroll').scrollWidth;
+      grid.addEventListener('mouseover',e=>{const c=e.target.closest('.d[data-i]');if(!c){tip.hidden=true;return;}
+        const d=days[+c.dataset.i],when=fmt(d.date);
+        tip.textContent=d.count===0?T('No contributions on {0}',when):d.count===1?T('1 contribution on {0}',when):T('{0} contributions on {1}',d.count,when);
+        tip.hidden=false;const r=c.getBoundingClientRect(),b=box.getBoundingClientRect();
+        tip.style.left=Math.max(0,Math.min(b.width-tip.offsetWidth,r.left-b.left+r.width/2-tip.offsetWidth/2))+'px';tip.style.top=(r.top-b.top-tip.offsetHeight-8)+'px';});
+      grid.addEventListener('mouseleave',()=>{tip.hidden=true;});
+      if(reduce||!('IntersectionObserver' in window))grid.classList.add('on');
+      else{const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();grid.classList.add('on');}},{threshold:.2});io.observe(grid);}
+    }
+    try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s&&Date.now()-s.t<TTL){render(s.d);return;}}catch(e){}
+    fetch(API).then(r=>r.ok?r.json():Promise.reject()).then(d=>{try{sessionStorage.setItem(KEY,JSON.stringify({t:Date.now(),d}));}catch(e){}render(d);}).catch(fail);
+  })();
+
   /* ---------- language menu: close on outside click or Escape ---------- */
   (function(){const d=document.querySelector('.lang');if(!d)return;
     document.addEventListener('click',e=>{if(d.open&&!d.contains(e.target))d.open=false;});
