@@ -66,6 +66,21 @@ except the optional GitHub call for the footer "last signal" stamp.
 - Cloudflare Pages: Workers & Pages → Create → Pages → "Upload assets" → drag this folder in.
 - Both let you attach kevin-bish.com under Domain settings.
 
+## Languages
+
+`index.html` (English) is the only page you edit by hand. `python3 scripts/build.py` turns it into one page per
+published language (`fr/index.html`, ...), adds the language menu, `hreflang` tags and the sitemap entries, and
+writes `window.I18N` into each translated page for the strings that live in `js/main.js`.
+
+- `i18n/languages.json`: the languages (code, English and native name, locale, direction) and an `enabled` flag. Only enabled languages are generated and linked.
+- `i18n/<code>.json`: the translations, `{"html": {...}, "js": {...}}`. Each entry is keyed by the English text itself, so when you edit the English the old translation simply stops matching and that string falls back to English until it is translated again.
+- `i18n/keep.json`: strings that stay as they are in every language (names, URLs, code-like words), so they are not reported as missing.
+- In `js/main.js`, any text a visitor can see is written `T('English text')` (or `T('... {0} ...', value)`).
+- `python3 scripts/build.py --i18n-report` shows how much of each language is translated (`--verbose` lists the gaps).
+- Right-to-left (Arabic): the editor frame stays left-to-right, like a code editor, and paragraphs get `dir="auto"` so they read right-to-left.
+- Fonts: Latin and Cyrillic are self-hosted; Arabic and Chinese use the visitor's system fonts.
+- The machine-readable files (`resume.json`, `llms*.txt`) stay English.
+
 ## Contact form (compose_message)
 
 The "compose_message()" link in Contact Me, and the `mail` terminal command both open one popup (`#mail` in `index.html`, logic in `js/main.js`).

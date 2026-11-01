@@ -1,0 +1,66 @@
+[
+  {
+    "code": "en",
+    "name": "English",
+    "native": "English",
+    "locale": "en_GB",
+    "dir": "ltr",
+    "enabled": true
+  },
+  {
+    "code": "fr",
+    "name": "French",
+    "native": "Français",
+    "locale": "fr_FR",
+    "dir": "ltr",
+    "enabled": true
+  },
+  {
+    "code": "es",
+    "name": "Spanish",
+    "native": "Español",
+    "locale": "es_ES",
+    "dir": "ltr",
+    "enabled": false
+  },
+  {
+    "code": "ru",
+    "name": "Russian",
+    "native": "Русский",
+    "locale": "ru_RU",
+    "dir": "ltr",
+    "enabled": false
+  },
+  {
+    "code": "ar",
+    "name": "Arabic",
+    "native": "العربية",
+    "locale": "ar_AR",
+    "dir": "rtl",
+    "enabled": false
+  },
+  {
+    "code": "zh",
+    "name": "Chinese (Simplified)",
+    "native": "中文",
+    "locale": "zh_CN",
+    "dir": "ltr",
+    "enabled": false
+  },
+  {
+    "code": "de",
+    "name": "German",
+    "native": "Deutsch",
+    "locale": "de_DE",
+    "dir": "ltr",
+    "enabled": false
+  },
+  {
+    "code": "pt",
+    "name": "Portuguese",
+    "native": "Português",
+    "locale": "pt_PT",
+    "dir": "ltr",
+    "enabled": false
+  }
+]
