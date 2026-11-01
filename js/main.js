@@ -18,6 +18,7 @@
     news:'<rect x="3" y="4" width="15" height="16" rx="1.5"/><path d="M18 8h3v10a2 2 0 0 1-2 2H5M6.5 8h8M6.5 12h8M6.5 16h5"/>',
     heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/>',
     term:'<path d="M4 6l6 6-6 6M12.5 18H20"/>',
+    music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
     aperture:'<circle cx="12" cy="12" r="9"/><path d="M12 3l3.5 6M21 12h-7M16.5 19.8L13 14M7.5 19.8L11 14M3 12h7M7.5 4.2L11 10"/>',
     camera:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/>',
     people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c3 .2 5 2.6 5 5.8"/>'
@@ -248,7 +249,7 @@
     'locode.txt':'UN/LOCODE: the United Nations Code for Trade and Transport Locations.\n116,000+ five-character codes: 2 letters for the country (ISO 3166-1), 3 for the place.\nUsed by customs, port community systems, maritime single windows, aviation and supply chains.\nTry: locode CHGVA',
     'now.txt':'2026–27 focus:\n- UN/CEFACT Plenary, Forum, Bureau and expert meetings (incl. Bureau elections)\n- Communications and outreach for the Digital Connectivity Unit and UN/CEFACT\n- ISO/TC 154/JWG 9 secretariat; liaison with ISO, WCO, IMO, FAO, UPU\n- Projects: Multimodal Transport data, GRID, Buy-Ship-Pay for trade finance\n- UN/LOCODE on the UN open-source platform',
     'featured.txt':'The Bajan Reporter (24 Jun 2012): student team wins CIBC FirstCaribbean UWI business plan contest with Bookline\n  https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/\nSpeaker, NTFC Session D11: climate-smart trade facilitation (GSCF 2024, Bridgetown, 23 May 2024)\n  https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart\nUNODC human impact story: Community Leadership in Urban Safety Governance Assessments\n  https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html\n  (part of UNODCity: https://www.unodc.org/unodc/en/urban-safety/crime-prevention/unodcity/unodcity-pilots.html)\nUNCTAD speaker profile\n  https://unctad.org/speaker/kevin-bishop',
-    'contact.txt':'website   = kevin-bish.com\nlinkedin  = linkedin.com/in/kevinbishp\ngithub    = github.com/kevinbish\ninstagram = instagram.com/kevinbish\nfacebook  = facebook.com/kevin.bishp\nvsco      = vsco.co/kevinbish/gallery',
+    'contact.txt':'website   = kevin-bish.com\nlinkedin  = linkedin.com/in/kevinbishp\ngithub    = github.com/kevinbish\ninstagram = instagram.com/kevinbish\nfacebook  = facebook.com/kevin.bishp\nvsco      = vsco.co/kevinbish/gallery\nspotify   = open.spotify.com/user/1212889341',
     'skills.json':'{ "standards": ["UN/LOCODE","UN/EDIFACT","UN/CCL","UN/FLUX"],\n  "code": ["Python","Java","JavaScript","PHP","SQL","Bash"],\n  "devops": ["Git","Bitbucket","Bamboo","Drupal","Confluence"],\n  "research": ["R","SPSS","STATA"] }'
   };
   const CMDS={
@@ -385,5 +386,25 @@
         try{sessionStorage.setItem(KEY,JSON.stringify({t:Date.now(),c}));}catch(e){}
         show(c);})
       .catch(()=>{});
+  })();
+  /* ---------- music card: link to Spotify; with data-embed set, the player loads only after a click ---------- */
+  (function(){
+    const m=document.getElementById('music'); if(!m) return;
+    const play=m.querySelector('.m-play'), frame=document.getElementById('musicFrame'), sub=document.getElementById('musicSub');
+    const embed=m.dataset.embed||'';
+    const ok=/^https:\/\/open\.spotify\.com\/embed\/(playlist|album|artist|track|show|episode)\/[A-Za-z0-9]+(\?[\w=&%-]*)?$/.test(embed);
+    if(ok) sub.textContent='// loads the Spotify player when you click';
+    play.addEventListener('mouseenter',()=>m.classList.add('playing'));
+    play.addEventListener('mouseleave',()=>m.classList.remove('playing'));
+    play.addEventListener('click',e=>{
+      if(!ok) return;                       /* no embed configured: the link opens the Spotify profile */
+      e.preventDefault();
+      const f=document.createElement('iframe');
+      f.src=embed; f.title='Spotify player'; f.loading='lazy';
+      f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+      const x=document.createElement('button'); x.type='button'; x.className='m-close'; x.textContent='close_player();';
+      x.addEventListener('click',()=>{frame.hidden=true; frame.textContent=''; m.classList.remove('open','playing'); play.focus();});
+      frame.textContent=''; frame.append(f,x); frame.hidden=false; m.classList.add('open','playing');
+    });
   })();
 })();

@@ -329,3 +329,23 @@ kbd{font:12px var(--mono);border:1px solid var(--rule);border-bottom-width:2px;p
 :root[data-theme="light"] .stamp a{text-shadow:none}
 .stamp .dec{display:inline-block;white-space:pre}
 .stamp .u{font-style:normal;opacity:.45}
+
+/* music card: bat-signal oval with an equalizer, links to Spotify (the player only loads on click when data-embed is set) */
+.music{margin-top:12px}
+.m-play{display:flex;align-items:center;gap:14px;padding:10px 14px;border:1px solid var(--rule);background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);text-decoration:none;transition:border-color .25s,transform .25s}
+.m-play:hover,.m-play:focus-visible{border-color:#ffe28c;transform:translateY(-2px)}
+.m-play .code{font-size:13.5px}
+.m-txt{display:grid;gap:2px;min-width:0}
+.m-sub{font:italic 12px var(--mono)}
+.eq{width:64px;height:36px;flex:none;overflow:visible;filter:drop-shadow(0 0 6px rgba(255,226,140,.5));transition:filter .3s}
+.eq ellipse{fill:#ffd54a;stroke:#1b1b1b;stroke-width:2}
+.eq rect{fill:#1b1b1b;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.45)}
+.m-play:hover .eq,.m-play:focus-visible .eq,.music.playing .eq{filter:drop-shadow(0 0 13px rgba(255,226,140,.95))}
+.m-play:hover .eq rect,.m-play:focus-visible .eq rect,.music.playing .eq rect{animation:eqbar 1s ease-in-out infinite}
+.eq .b2{animation-delay:-.35s!important}.eq .b3{animation-delay:-.7s!important}.eq .b4{animation-delay:-.15s!important}
+@keyframes eqbar{0%,100%{transform:scaleY(.3)}35%{transform:scaleY(1.35)}65%{transform:scaleY(.7)}}
+.m-frame{margin-top:10px}
+.m-frame iframe{display:block;width:100%;height:152px;border:0;border-radius:12px;background:var(--panel)}
+.m-close{margin-top:8px;font:500 12px var(--mono);background:none;border:0;padding:0;color:var(--head);cursor:pointer}
+.m-close:hover{text-decoration:underline}
+.music.open .m-play{display:none}
