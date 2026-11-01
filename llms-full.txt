@@ -1,6 +1,6 @@
 # Kevin Bishop: full profile
 
-Source: https://www.kevin-bish.com/ · Last updated: 2026-10-31
+Source: https://www.kevin-bish.com/ · Last updated: 2026-11-01
 
 Digitization and trade-data standards specialist at UNECE / UN/CEFACT in Geneva. Secretary of the UN/LOCODE Advisory Group and of UN/EDIFACT, focal point for methodology and technology, and Secretary of ISO/TC 154/JWG 9.
 
@@ -137,7 +137,7 @@ Location: Barbados
 ## Links
 
 - LinkedIn: https://www.linkedin.com/in/kevinbishp
-- GitHub: https://github.com/exiax
+- GitHub: https://github.com/kevinbish
 - Instagram: https://www.instagram.com/kevinbish/
 - Facebook: https://www.facebook.com/kevin.bishp/
 - VSCO: https://vsco.co/kevinbish/gallery
