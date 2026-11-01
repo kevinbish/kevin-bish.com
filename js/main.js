@@ -410,4 +410,13 @@
       frame.textContent=''; frame.append(f,x,document.createTextNode(' '),o); frame.hidden=false; m.classList.add('open','playing');
     });
   })();
+  /* ---------- printing: open every <details> so the full text is on paper, then put them back ---------- */
+  (function(){
+    const was=new Set();
+    const open=()=>document.querySelectorAll('details:not([open])').forEach(d=>{was.add(d);d.open=true;});
+    const restore=()=>{was.forEach(d=>{d.open=false;});was.clear();};
+    addEventListener('beforeprint',open);addEventListener('afterprint',restore);
+    const mq=matchMedia('print');
+    if(mq.addEventListener) mq.addEventListener('change',e=>e.matches?open():restore());
+  })();
 })();

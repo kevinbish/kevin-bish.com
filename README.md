@@ -66,6 +66,11 @@ except the optional GitHub call for the footer "last signal" stamp.
 - Cloudflare Pages: Workers & Pages → Create → Pages → "Upload assets" → drag this folder in.
 - Both let you attach kevin-bish.com under Domain settings.
 
+## Printing and no-JavaScript
+
+- Printing or saving as PDF switches to a light layout, opens every collapsed section so the full text is on paper, and hides the controls, the skills circles, the music card and the footer stamp (`@media print` at the end of `css/style.css`, plus a small `beforeprint` handler in `js/main.js`).
+- With scripts off the page still reads in full: the details toggles are native, the skills section falls back to a plain list (the `<ul class="ring-list">` inside `#rings`, which `main.js` replaces), and controls that need scripts are hidden by a `<noscript>` style block in the `<head>`. If you change the four skills text in `js/main.js`, change that list too.
+
 ## Test locally
 Open `index.html` in a browser, or for a closer match to production run:
 ```
