@@ -1,5 +1,12 @@
 (function(){
   const root=document.documentElement, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---------- language: window.I18N is written into each translated page by scripts/build.py ---------- */
+  const LANG=root.lang||'en', DICT=(window.I18N&&window.I18N.t)||{};
+  const LOCALE={en:'en-GB',fr:'fr-FR',es:'es-ES',ru:'ru-RU',ar:'ar-u-nu-latn',zh:'zh-CN',de:'de-DE',pt:'pt-PT'}[LANG]||'en-GB';
+  const T=(s,...a)=>{let r=DICT[s]||s;a.forEach((v,i)=>{r=r.split('{'+i+'}').join(v);});return r;};
+  const NUM=v=>Number(v).toLocaleString(LANG==='en'?'en-US':LOCALE);
+  let DN=null;try{if(LANG!=='en'&&Intl.DisplayNames)DN=new Intl.DisplayNames([LOCALE],{type:'region'});}catch(e){}
+  const ctry=l=>{try{return (DN&&DN.of(l[0].slice(0,2)))||l[2];}catch(e){return l[2];}};
 
   /* ---------- side line numbers (addLineNum, as on the original site) ---------- */
   const gut=document.getElementById('gutter');let lastKey='';
@@ -124,30 +131,30 @@
 
   /* ---------- KPI rings ---------- */
   const R=[
-    {to:116000,suf:'+',unit:'LOCATION CODES',lbl:'Coding',col:'--r1',pct:1,
-     k:'"UN/LOCODE"',p:'More than 116,000 location codes kept accurate and published on schedule, used by customs systems, port community systems, maritime single windows, aviation networks and sustainability reporting worldwide.'},
-    {to:5,suf:'',unit:'UN STANDARDS',lbl:'I.T Solutions',col:'--r2',pct:.85,
-     k:'"UN/CEFACT portfolio"',p:'UN/LOCODE, UN/EDIFACT, UN/CCL, UN/FLUX and the UN Recommendation code lists, maintained through Data Maintenance Requests submitted by experts worldwide.'},
-    {to:5,suf:'',unit:'ISO PROJECTS',lbl:'Technology',col:'--r3',pct:.7,
-     k:'"ISO/TC 154/JWG 9"',p:'Five ISO projects, from the Trade Data Elements Directory and the Buy-Ship-Pay model to the DLT-based electronic bill of lading and the Digital Product Passport.'},
-    {to:18,suf:'+',unit:'YEARS',lbl:'Project Management',col:'--r4',pct:.8,
-     k:'"track record"',p:'From IT intern at CIBC FirstCaribbean in 2008, through research for UNDP, teaching at UWI and ICT consulting in Barbados, to UN standards work in Geneva since 2021.'}
+    {to:116000,suf:'+',unit:T('LOCATION CODES'),lbl:T('Coding'),col:'--r1',pct:1,
+     k:'UN/LOCODE',p:T('More than 116,000 location codes kept accurate and published on schedule, used by customs systems, port community systems, maritime single windows, aviation networks and sustainability reporting worldwide.')},
+    {to:5,suf:'',unit:T('UN STANDARDS'),lbl:T('I.T Solutions'),col:'--r2',pct:.85,
+     k:T('UN/CEFACT portfolio'),p:T('UN/LOCODE, UN/EDIFACT, UN/CCL, UN/FLUX and the UN Recommendation code lists, maintained through Data Maintenance Requests submitted by experts worldwide.')},
+    {to:5,suf:'',unit:T('ISO PROJECTS'),lbl:T('Technology'),col:'--r3',pct:.7,
+     k:'ISO/TC 154/JWG 9',p:T('Five ISO projects, from the Trade Data Elements Directory and the Buy-Ship-Pay model to the DLT-based electronic bill of lading and the Digital Product Passport.')},
+    {to:18,suf:'+',unit:T('YEARS'),lbl:T('Project Management'),col:'--r4',pct:.8,
+     k:T('track record'),p:T('From IT intern at CIBC FirstCaribbean in 2008, through research for UNDP, teaching at UWI and ICT consulting in Barbados, to UN standards work in Geneva since 2021.')}
   ];
   const host=document.getElementById('rings'),C=2*Math.PI*52;
   host.innerHTML=R.map((r,i)=>`<button class="ring" data-i="${i}" aria-pressed="${i===0}">
     <svg viewBox="0 0 130 130" aria-hidden="true"><circle class="trk" cx="65" cy="65" r="52"/>
       <circle class="arc" cx="65" cy="65" r="52" style="stroke:var(${r.col});stroke-dasharray:${C};stroke-dashoffset:${C*(1-r.pct)}"/>
-      <text class="n" x="65" y="68" text-anchor="middle">${r.to.toLocaleString('en-US')}${r.suf}</text>
+      <text class="n" x="65" y="68" text-anchor="middle">${NUM(r.to)}${r.suf}</text>
       <text class="u" x="65" y="84" text-anchor="middle">${r.unit}</text></svg>
     <span class="lbl">${r.lbl}</span></button>`).join('');
   const rings=[...host.querySelectorAll('.ring')],bK=document.getElementById('bK'),bP=document.getElementById('bP');
-  function pick(i){rings.forEach((b,j)=>b.setAttribute('aria-pressed',i===j));bK.textContent=R[i].k;bP.textContent=R[i].p;}
+  function pick(i){rings.forEach((b,j)=>b.setAttribute('aria-pressed',i===j));bK.textContent='"'+R[i].k+'"';bP.textContent=R[i].p;}
   rings.forEach((b,i)=>b.addEventListener('click',()=>pick(i)));pick(0);
   if(!reduce&&'IntersectionObserver' in window){
     const io=new IntersectionObserver(es=>{if(!es.some(e=>e.isIntersecting))return;io.disconnect();
       rings.forEach((b,i)=>{const arc=b.querySelector('.arc'),n=b.querySelector('.n'),r=R[i],end=C*(1-r.pct);
         arc.style.transition='none';arc.style.strokeDashoffset=C;arc.getBoundingClientRect();arc.style.transition='';arc.style.strokeDashoffset=end;
-        const s=performance.now();(function step(now){const p=Math.min(1,(now-s)/1600),e=1-Math.pow(1-p,3);n.textContent=Math.round(r.to*e).toLocaleString('en-US')+r.suf;if(p<1)requestAnimationFrame(step);})(s);});
+        const s=performance.now();(function step(now){const p=Math.min(1,(now-s)/1600),e=1-Math.pow(1-p,3);n.textContent=NUM(Math.round(r.to*e))+r.suf;if(p<1)requestAnimationFrame(step);})(s);});
     },{threshold:.35});io.observe(host);}
 
   /* ---------- timeline filter ---------- */
@@ -173,7 +180,7 @@
     ['MAPTM','Tanger Med','Morocco'],['EGALY','Alexandria','Egypt'],['INBOM','Mumbai','India'],['LKCMB','Colombo','Sri Lanka'],
     ['MYPKG','Port Klang','Malaysia'],['THBKK','Bangkok','Thailand'],['VNSGN','Ho Chi Minh City','Viet Nam'],['IDJKT','Jakarta','Indonesia']
   ];
-  const RANKS=[[0,'Port Clerk'],[600,'Customs Officer'],[1500,'National Focal Point'],[3000,'Maintenance Team Lead'],[5000,'Secretary of the Advisory Group']];
+  const RANKS=[[0,T('Port Clerk')],[600,T('Customs Officer')],[1500,T('National Focal Point')],[3000,T('Maintenance Team Lead')],[5000,T('Secretary of the Advisory Group')]];
   const $=id=>document.getElementById(id);
   const game=$('game'),gS=$('gStart'),gP=$('gPlay'),gO=$('gOver'),gOpts=$('gOpts'),gTime=$('gTime');
   const batSvg='<svg viewBox="0 0 60 26"><use href="#bat"/></svg>';
@@ -182,10 +189,10 @@
   const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
   const rankFor=s=>RANKS.reduce((r,[min,n])=>s>=min?n:r,RANKS[0][1]);
   function show(el){[gS,gP,gO].forEach(s=>s.hidden=s!==el);}
-  function openGame(){lastFocus=document.activeElement;closeTerm();game.hidden=false;$('gBest0').textContent=best.toLocaleString('en-US');show(gS);$('gGo').focus();}
+  function openGame(){lastFocus=document.activeElement;closeTerm();game.hidden=false;$('gBest0').textContent=NUM(best);show(gS);$('gGo').focus();}
   function closeGame(){cancelAnimationFrame(raf);st=null;game.hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus();}
   function start(){st={score:0,streak:0,bestStreak:0,lives:3,right:0,asked:0,deck:shuffle(LOC.slice()),busy:false};show(gP);hud();next();}
-  function hud(){$('gScore').textContent=st.score.toLocaleString('en-US');$('gStreak').textContent=st.streak;
+  function hud(){$('gScore').textContent=NUM(st.score);$('gStreak').textContent=st.streak;
     $('gMult').textContent='×'+mult();$('gLives').innerHTML=[0,1,2].map(i=>batSvg.replace('<svg','<svg class="'+(i<st.lives?'':'lost')+'"')).join('');}
   const mult=()=>1+Math.floor(st.streak/3)*.5;
   function next(){
@@ -196,9 +203,9 @@
     const d=[];if(same.length)d.push(same[Math.floor(Math.random()*same.length)]);while(d.length<3)d.push(others.pop());
     const opts=shuffle([q,...d]);st.opts=opts;
     $('gCode').innerHTML='<span class="cc">'+q[0].slice(0,2)+'</span>'+q[0].slice(2);
-    $('gCountry').textContent='// '+q[0].slice(0,2)+' = country, '+q[0].slice(2)+' = place. Where is it?';
+    $('gCountry').textContent=T('// {0} = country, {1} = place. Where is it?',q[0].slice(0,2),q[0].slice(2));
     $('gFact').textContent='';
-    gOpts.innerHTML=opts.map((o,i)=>`<button class="g-opt" data-i="${i}"><kbd>${i+1}</kbd><span>${o[1]}, ${o[2]}</span></button>`).join('');
+    gOpts.innerHTML=opts.map((o,i)=>`<button class="g-opt" data-i="${i}"><kbd>${i+1}</kbd><span>${o[1]}, ${ctry(o)}</span></button>`).join('');
     st.t0=performance.now();st.dur=10000;tick();}
   function tick(){cancelAnimationFrame(raf);
     (function f(now){if(!st||st.busy)return;const left=Math.max(0,1-(now-st.t0)/st.dur);gTime.style.transform='scaleX('+left+')';gTime.classList.toggle('low',left<.3);
@@ -208,22 +215,22 @@
     const q=st.q,ci=st.opts.indexOf(q),btns=[...gOpts.children];btns.forEach(b=>b.disabled=true);btns[ci].classList.add('ok');
     const left=Math.max(0,1-(performance.now()-st.t0)/st.dur);
     if(i===ci){st.streak++;st.right++;st.bestStreak=Math.max(st.bestStreak,st.streak);const pts=Math.round((100+left*100)*mult());st.score+=pts;
-      $('gFact').innerHTML='<span class="v">+'+pts+'</span> '+q[0]+' = '+q[1]+', '+q[2]+'. '+q[0].slice(0,2)+' is the ISO 3166-1 country code.';}
+      $('gFact').innerHTML='<span class="v">+'+pts+'</span> '+T('{0} = {1}, {2}. {3} is the ISO 3166-1 country code.',q[0],q[1],ctry(q),q[0].slice(0,2));}
     else{st.lives--;st.streak=0;if(i>=0)btns[i].classList.add('bad');$('gCode').classList.remove('shake');void $('gCode').offsetWidth;$('gCode').classList.add('shake');
-      $('gFact').innerHTML=(i<0?'<span class="in">timeout.</span> ':'<span class="in">miss.</span> ')+q[0]+' = '+q[1]+', '+q[2]+'.';}
+      $('gFact').innerHTML=(i<0?'<span class="in">'+T('timeout.')+'</span> ':'<span class="in">'+T('miss.')+'</span> ')+T('{0} = {1}, {2}.',q[0],q[1],ctry(q));}
     hud();setTimeout(()=>{if(!st)return;st.lives>0?next():over();},i===ci?900:1600);}
   function over(){
     const s=st.score,isNew=s>best;if(isNew){best=s;try{localStorage.setItem('kbLocodeBest',String(best))}catch(e){}}
-    $('gFinal').textContent=s.toLocaleString('en-US');$('gRank').textContent='"'+rankFor(s)+'"';$('gBest1').textContent=best.toLocaleString('en-US');
-    $('gNew').textContent=isNew&&s>0?'// new personal best':'';
+    $('gFinal').textContent=NUM(s);$('gRank').textContent='"'+rankFor(s)+'"';$('gBest1').textContent=NUM(best);
+    $('gNew').textContent=isNew&&s>0?T('// new personal best'):'';
     $('gStats').textContent='correct = '+st.right+'/'+st.asked+';  best_streak = '+st.bestStreak+';';
     $('gCopied').textContent='';show(gO);$('gAgain').focus();}
-  $('gMax').onclick=()=>{const w=game.querySelector('.win'),big=w.classList.toggle('big');$('gMax').title=big?'Restore size':'Enlarge';$('gMax').setAttribute('aria-label',big?'Restore game window size':'Enlarge game window');};
+  $('gMax').onclick=()=>{const w=game.querySelector('.win'),big=w.classList.toggle('big');$('gMax').title=big?T('Restore size'):T('Enlarge');$('gMax').setAttribute('aria-label',big?T('Restore game window size'):T('Enlarge game window'));};
   $('gGo').onclick=start;$('gAgain').onclick=start;$('gClose').onclick=closeGame;
   game.addEventListener('click',e=>{if(e.target===game)closeGame();});
   gOpts.addEventListener('click',e=>{const b=e.target.closest('.g-opt');if(b)answer(+b.dataset.i);});
-  $('gShare').onclick=()=>{const txt='I scored '+st.score.toLocaleString('en-US')+' in LOCODE Hunter ('+rankFor(st.score)+'). Can you name the port behind the code?';
-    const done=()=>$('gCopied').textContent='// copied to clipboard';
+  $('gShare').onclick=()=>{const txt=T('I scored {0} in LOCODE Hunter ({1}). Can you name the port behind the code?',NUM(st.score),rankFor(st.score));
+    const done=()=>$('gCopied').textContent=T('// copied to clipboard');
     try{navigator.clipboard.writeText(txt).then(done,()=>{$('gCopied').textContent=txt;});}catch(e){$('gCopied').textContent=txt;}};
   $('openGame').onclick=openGame;$('avatar').onclick=openGame;
 
@@ -232,45 +239,46 @@
   const SECTIONS=['skills','experience','education','projects','ict','publications','honours','featured','additional'];
   function line(txt,cls){const d=document.createElement('div');d.className=cls||'o';d.textContent=txt;tOut.appendChild(d);tOut.scrollTop=tOut.scrollHeight;return d;}
   function setTermState(st2){term.classList.toggle('min',st2==='min');term.classList.toggle('max',st2==='max');
-    $('tState').textContent=st2==='min'?'minimised · click to restore':st2==='max'?'maximised':'';
-    $('tMax').title=st2==='max'?'Restore size':'Maximise';$('tMin').title=st2==='min'?'Restore':'Minimise';
+    $('tState').textContent=st2==='min'?T('minimised · click to restore'):st2==='max'?T('maximised'):'';
+    $('tMax').title=st2==='max'?T('Restore size'):T('Maximise');$('tMin').title=st2==='min'?T('Restore'):T('Minimise');
     if(st2!=='min')setTimeout(()=>tIn.focus(),30);}
   function termState(){return term.classList.contains('min')?'min':term.classList.contains('max')?'max':'normal';}
   function openTerm(){term.hidden=false;if(termState()==='min')setTermState('normal');if(!termOpened){termOpened=true;
-      line('Gotham OS 2.6 (kevin_bishop.js) — tty1','hl');line("Type 'help' to see commands. Tab completes, ↑ recalls, Esc closes.");line("Window: yellow minimises, green maximises, drag the top edge to resize, double-click the title bar.");}
+      line('Gotham OS 2.6 (kevin_bishop.js) — tty1','hl');line(T("Type 'help' to see commands. Tab completes, ↑ recalls, Esc closes."));line(T("Window: yellow minimises, green maximises, drag the top edge to resize, double-click the title bar."));}
     setTimeout(()=>tIn.focus(),30);addLineNum();}
   function closeTerm(){if(term.hidden)return;term.hidden=true;}
-  const ROLES=['2024–now  Secretary, UN/LOCODE Advisory Group      UNECE','2021–now  Associate Information Management Officer  UNECE · UN/CEFACT',
-    '2023–now  Secretary, ISO/TC 154/JWG 9              ISO','2019–21   ICT Management Specialist               Haigh Communications',
-    '2019–21   Teaching Assistant                      UWI','2013–15   Quantitative Research Analyst           UNDP',
-    '2012–13   Research Consultant                     CPDC','2010–12   Research Assistant                      UWI',
-    '2010      Intern, Test & Dispatch Technician      LIME','2008      Intern, IT Technical Analyst            CIBC FirstCaribbean'];
+  const ROLES=[['2024–now',T('Secretary, UN/LOCODE Advisory Group'),'UNECE'],['2021–now',T('Associate Information Management Officer'),'UNECE · UN/CEFACT'],
+    ['2023–now',T('Secretary, ISO/TC 154/JWG 9'),'ISO'],['2019–21',T('ICT Management Specialist'),'Haigh Communications'],['2019–21',T('Teaching Assistant'),'UWI'],
+    ['2013–15',T('Quantitative Research Analyst'),'UNDP'],['2012–13',T('Research Consultant'),'CPDC'],['2010–12',T('Research Assistant'),'UWI'],
+    ['2010',T('Intern, Test & Dispatch Technician'),'LIME'],['2008',T('Intern, IT Technical Analyst'),'CIBC FirstCaribbean']];
+  const roleLines=()=>{const t=ROLES.map(r=>r[1]),w=Math.max(...t.map(x=>x.length))+2;return ROLES.map((r,n)=>r[0].padEnd(10)+t[n].padEnd(w)+r[2]);};
+  const L=(...a)=>a.join('\n');
   const FILES={
-    'about.txt':'Kevin Bishop. Digitization and standards specialist at UNECE / UN/CEFACT in Geneva, originally from Barbados.\nSecretary of UN/LOCODE and UN/EDIFACT, focal point for methodology and technology, Secretary of ISO/TC 154/JWG 9.\nLikes: summer, the beach, chess, coding, bad puns.',
-    'locode.txt':'UN/LOCODE: the United Nations Code for Trade and Transport Locations.\n116,000+ five-character codes: 2 letters for the country (ISO 3166-1), 3 for the place.\nUsed by customs, port community systems, maritime single windows, aviation and supply chains.\nTry: locode CHGVA',
-    'now.txt':'2026–27 focus:\n- UN/CEFACT Plenary, Forum, Bureau and expert meetings (incl. Bureau elections)\n- Communications and outreach for the Digital Connectivity Unit and UN/CEFACT\n- ISO/TC 154/JWG 9 secretariat; liaison with ISO, WCO, IMO, FAO, UPU\n- Projects: Multimodal Transport data, GRID, Buy-Ship-Pay for trade finance\n- UN/LOCODE on the UN open-source platform',
-    'featured.txt':'The Bajan Reporter (24 Jun 2012): student team wins CIBC FirstCaribbean UWI business plan contest with Bookline\n  https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/\nSpeaker, NTFC Session D11: climate-smart trade facilitation (GSCF 2024, Bridgetown, 23 May 2024)\n  https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart\nUNODC human impact story: Community Leadership in Urban Safety Governance Assessments\n  https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html\n  (part of UNODCity: https://www.unodc.org/unodc/en/urban-safety/crime-prevention/unodcity/unodcity-pilots.html)\nUNCTAD speaker profile\n  https://unctad.org/speaker/kevin-bishop',
+    'about.txt':L(T('Kevin Bishop. Digitization and standards specialist at UNECE / UN/CEFACT in Geneva, originally from Barbados.'),T('Secretary of UN/LOCODE and UN/EDIFACT, focal point for methodology and technology, Secretary of ISO/TC 154/JWG 9.'),T('Likes: summer, the beach, chess, coding, bad puns.')),
+    'locode.txt':L(T('UN/LOCODE: the United Nations Code for Trade and Transport Locations.'),T('116,000+ five-character codes: 2 letters for the country (ISO 3166-1), 3 for the place.'),T('Used by customs, port community systems, maritime single windows, aviation and supply chains.'),T('Try: locode CHGVA')),
+    'now.txt':L(T('2026–27 focus:'),T('- UN/CEFACT Plenary, Forum, Bureau and expert meetings (incl. Bureau elections)'),T('- Communications and outreach for the Digital Connectivity Unit and UN/CEFACT'),T('- ISO/TC 154/JWG 9 secretariat; liaison with ISO, WCO, IMO, FAO, UPU'),T('- Projects: Multimodal Transport data, GRID, Buy-Ship-Pay for trade finance'),T('- UN/LOCODE on the UN open-source platform')),
+    'featured.txt':L(T('The Bajan Reporter (24 Jun 2012): student team wins CIBC FirstCaribbean UWI business plan contest with Bookline'),'  https://www.bajanreporter.com/2012/06/barbadian-student-team-cops-1st-prize-in-cibc-firstcaribbeans-uwi-business-plan-contest/',T('Speaker, NTFC Session D11: climate-smart trade facilitation (GSCF 2024, Bridgetown, 23 May 2024)'),'  https://unctad.org/meeting/ntfc-session-11-national-trade-facilitation-committees-involvement-pioneering-climate-smart',T('UNODC human impact story: Community Leadership in Urban Safety Governance Assessments'),'  https://www.unodc.org/unodc/en/sustainable-development-goals/human-impact-stories/community-leadership-in-urban-safety-governance-assessments.html',T('  (part of UNODCity: {0})','https://www.unodc.org/unodc/en/urban-safety/crime-prevention/unodcity/unodcity-pilots.html'),T('UNCTAD speaker profile'),'  https://unctad.org/speaker/kevin-bishop'),
     'contact.txt':'website   = kevin-bish.com\nlinkedin  = linkedin.com/in/kevinbishp\ngithub    = github.com/kevinbish\ninstagram = instagram.com/kevinbish\nfacebook  = facebook.com/kevin.bishp\nvsco      = vsco.co/kevinbish/gallery\nspotify   = Kevin Bish (open.spotify.com/user/1212889341)',
     'skills.json':'{ "standards": ["UN/LOCODE","UN/EDIFACT","UN/CCL","UN/FLUX"],\n  "code": ["Python","Java","JavaScript","PHP","SQL","Bash"],\n  "devops": ["Git","Bitbucket","Bamboo","Drupal","Confluence"],\n  "research": ["R","SPSS","STATA"] }'
   };
   const CMDS={
-    help(){[['help','this list'],['whoami','who is this?'],['ls [experience]','list sections or roles'],['cat <file>','read about.txt, now.txt, featured.txt, locode.txt, contact.txt, skills.json'],
-      ['cd <section>','jump to a section'],['locode <CODE>','look up a code, e.g. locode NLRTM'],['play','start LOCODE Hunter'],['mail','write Kevin a message'],['signal','light the sky'],
-      ['social','all of Kevin\'s links'],['theme light|dark','switch mode'],['date','current date and time'],['echo <text>','print text'],['history','previous commands'],['clear','clear the screen'],['exit','close the terminal']]
-      .forEach(([c,d])=>line(c.padEnd(18)+d));line("…and maybe a sudo command or two.",'o');},
-    whoami(){line('Kevin Bishop','hl');line('UN/LOCODE & UN/EDIFACT Secretary · UNECE / UN/CEFACT · Geneva (via Barbados)');},
-    ls(a){if(a[0]==='experience'||a[0]==='experience/'){ROLES.forEach(r=>line(r));return;}
-      if(a[0]){line('ls: cannot access \''+a[0]+'\': try ls or ls experience','err');return;}
+    help(){[['help',T('this list')],['whoami',T('who is this?')],['ls [experience]',T('list sections or roles')],['cat <file>',T('read about.txt, now.txt, featured.txt, locode.txt, contact.txt, skills.json')],
+      ['cd <section>',T('jump to a section')],['locode <CODE>',T('look up a code, e.g. locode NLRTM')],['play',T('start LOCODE Hunter')],['mail',T('write Kevin a message')],['signal',T('light the sky')],
+      ['social',T("all of Kevin's links")],['theme light|dark',T('switch mode')],['date',T('current date and time')],['echo <text>',T('print text')],['history',T('previous commands')],['clear',T('clear the screen')],['exit',T('close the terminal')]]
+      .forEach(([c,d])=>line(c.padEnd(18)+d));line(T("…and maybe a sudo command or two."),'o');},
+    whoami(){line('Kevin Bishop','hl');line(T('UN/LOCODE & UN/EDIFACT Secretary · UNECE / UN/CEFACT · Geneva (via Barbados)'));},
+    ls(a){if(a[0]==='experience'||a[0]==='experience/'){roleLines().forEach(r=>line(r));return;}
+      if(a[0]){line(T("ls: cannot access '{0}': try ls or ls experience",a[0]),'err');return;}
       line(SECTIONS.map(s=>s+'/').join('  '),'hl');line(Object.keys(FILES).join('  '));},
-    cat(a){const f=FILES[a[0]];if(!a[0])line('cat: which file? try cat about.txt','err');else if(f)f.split('\n').forEach(l=>line(l));else line('cat: '+a[0]+': No such file','err');},
+    cat(a){const f=FILES[a[0]];if(!a[0])line(T('cat: which file? try cat about.txt'),'err');else if(f)f.split('\n').forEach(l=>line(l));else line(T('cat: {0}: No such file',a[0]),'err');},
     cd(a){const s=(a[0]||'').replace(/\/$/,'');if(!s||s==='~'){closeTerm();scrollTo({top:0,behavior:'smooth'});return;}
-      if(SECTIONS.includes(s)){line('→ '+s,'ok');setTimeout(()=>{closeTerm();$(s).scrollIntoView({behavior:reduce?'auto':'smooth'});},250);}else line('cd: '+s+': No such section. Try: '+SECTIONS.join(', '),'err');},
-    locode(a){const c=(a[0]||'').toUpperCase().replace(/\s/g,'');if(!c){line('usage: locode <CODE>   e.g. locode SGSIN','err');return;}
-      const hit=LOC.find(l=>l[0]===c);if(hit){line(c+'  →  '+hit[1]+', '+hit[2],'ok');line('country '+c.slice(0,2)+' · location '+c.slice(2));}
-      else if(/^[A-Z]{2}[A-Z2-9]{3}$/.test(c))line(c+' is a valid-looking code, but not in this page\'s demo set. The full code list (116,000+ entries) is published by UNECE.');
-      else line('locode: "'+c+'" is not a code. Format: 2-letter country + 3-character place, e.g. BBBGI','err');},
-    play(){line('launching locode_hunter.exe…','ok');setTimeout(openGame,300);},
-    mail(){line('opening compose_message()…','ok');setTimeout(openMail,300);},
+      if(SECTIONS.includes(s)){line('→ '+s,'ok');setTimeout(()=>{closeTerm();$(s).scrollIntoView({behavior:reduce?'auto':'smooth'});},250);}else line(T('cd: {0}: No such section. Try: {1}',s,SECTIONS.join(', ')),'err');},
+    locode(a){const c=(a[0]||'').toUpperCase().replace(/\s/g,'');if(!c){line(T('usage: locode <CODE>   e.g. locode SGSIN'),'err');return;}
+      const hit=LOC.find(l=>l[0]===c);if(hit){line(c+'  →  '+hit[1]+', '+ctry(hit),'ok');line(T('country {0} · location {1}',c.slice(0,2),c.slice(2)));}
+      else if(/^[A-Z]{2}[A-Z2-9]{3}$/.test(c))line(T("{0} is a valid-looking code, but not in this page's demo set. The full code list (116,000+ entries) is published by UNECE.",c));
+      else line(T('locode: "{0}" is not a code. Format: 2-letter country + 3-character place, e.g. BBBGI',c),'err');},
+    play(){line(T('launching locode_hunter.exe…'),'ok');setTimeout(openGame,300);},
+    mail(){line(T('opening compose_message()…'),'ok');setTimeout(openMail,300);},
     signal(){line('signal.lit = true;','ok');closeTerm();scrollTo({top:0,behavior:reduce?'auto':'smooth'});setTimeout(()=>lightSignal(true),reduce?0:450);},
     theme(a){const v=(a[0]||'').toLowerCase();if(v==='day'||v==='light'){setMode(true);line('theme = "light";','ok');}else if(v==='night'||v==='dark'){setMode(false);line('theme = "dark";','ok');}else line('usage: theme light | theme dark','err');},
     date(){line(new Date().toString());},
@@ -279,15 +287,15 @@
     clear(){tOut.textContent='';},
     exit(){closeTerm();},
     sudo(a){const s=a.join(' ').toLowerCase();
-      if(s==='hire kevin'){line('[sudo] password for recruiter: ********');line('Access granted. Opening secure channel…','ok');FILES['contact.txt'].split('\n').forEach(l=>line(l,'hl'));}
-      else line('Nice try. This incident will be reported to the Advisory Group.','err');},
+      if(s==='hire kevin'){line(T('[sudo] password for recruiter: ********'));line(T('Access granted. Opening secure channel…'),'ok');FILES['contact.txt'].split('\n').forEach(l=>line(l,'hl'));}
+      else line(T('Nice try. This incident will be reported to the Advisory Group.'),'err');},
     social(){FILES['contact.txt'].split('\n').forEach(l=>line(l,'hl'));},
-    batman(){line("I'm not saying Kevin is Batman. I'm saying nobody has seen them in the same room.",'hl');},
-    rm(a){line(a.join(' ').includes('-rf')?'rm: permission denied. The codes stay up.':'rm: permission denied','err');}
+    batman(){line(T("I'm not saying Kevin is Batman. I'm saying nobody has seen them in the same room."),'hl');},
+    rm(a){line(a.join(' ').includes('-rf')?T('rm: permission denied. The codes stay up.'):T('rm: permission denied'),'err');}
   };
   CMDS.message=CMDS.mail;CMDS.contact=CMDS.mail;CMDS.locate=CMDS.locode;CMDS.man=CMDS.help;CMDS['?']=CMDS.help;
   function run(raw){const v=raw.trim();line(v,'cmd');if(!v)return;hist.push(v);hi=hist.length;
-    const [c,...a]=v.split(/\s+/),fn=CMDS[c.toLowerCase()];if(fn)fn(a);else line(c+': command not found. Type \'help\'.','err');}
+    const [c,...a]=v.split(/\s+/),fn=CMDS[c.toLowerCase()];if(fn)fn(a);else line(T("{0}: command not found. Type 'help'.",c),'err');}
   $('tForm').addEventListener('submit',e=>{e.preventDefault();run(tIn.value);tIn.value='';});
   tIn.addEventListener('keydown',e=>{
     if(e.key==='ArrowUp'){if(hi>0){hi--;tIn.value=hist[hi];}e.preventDefault();}
@@ -326,29 +334,29 @@
     e.preventDefault();if(mSent)return;
     const name=$('mName').value.trim(),email=$('mEmail').value.trim(),subj=$('mSubject').value.trim(),body=$('mBody').value.trim();
     mErr.textContent='';
-    if(!name){mErr.textContent='// name is required';$('mName').focus();return;}
-    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){mErr.textContent='// that reply_to does not look like an email address';$('mEmail').focus();return;}
-    if(body.length<5){mErr.textContent='// say a little more in the body';$('mBody').focus();return;}
+    if(!name){mErr.textContent=T('// name is required');$('mName').focus();return;}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){mErr.textContent=T('// that reply_to does not look like an email address');$('mEmail').focus();return;}
+    if(body.length<5){mErr.textContent=T('// say a little more in the body');$('mBody').focus();return;}
     mSent=true;
     /* trap field and timing: for bots. A real visitor needs more than a couple of seconds to fill this in. */
     const bot=$('mTrap').value!==''||Date.now()-mOpenedAt<2500;
     $('mCompose').hidden=true;$('mSent').hidden=false;mail.firstElementChild.classList.add('sending');
-    await mLine('> validating message… ok','ok');
-    await mLine('> encrypting signal… ok','ok');
+    await mLine(T('> validating message… ok'),'ok');
+    await mLine(T('> encrypting signal… ok'),'ok');
     mMsg=body+'\n\n— '+name+(email?' <'+email+'>':'');
-    if(bot){await mLine('> signal dropped.');mail.firstElementChild.classList.remove('sending');$('mAfter').hidden=false;return;}
-    await mLine('> opening your mail app…','hl');
+    if(bot){await mLine(T('> signal dropped.'));mail.firstElementChild.classList.remove('sending');$('mAfter').hidden=false;return;}
+    await mLine(T('> opening your mail app…'),'hl');
     const a=document.createElement('a');
-    a.href='mailto:'+MAIL_TO+'?subject='+encodeURIComponent(subj||'Message from kevin-bish.com')+'&body='+encodeURIComponent(mMsg);
+    a.href='mailto:'+MAIL_TO+'?subject='+encodeURIComponent(subj||T('Message from kevin-bish.com'))+'&body='+encodeURIComponent(mMsg);
     document.body.append(a);a.click();a.remove();
     await wait(500);
     mail.firstElementChild.classList.remove('sending');
-    await mLine('// if your mail app did not open, copy the message and the address and send it from any email.');
+    await mLine(T('// if your mail app did not open, copy the message and the address and send it from any email.'));
     $('mAfter').hidden=false;$('mCopyMsg').focus();});
   async function mCopy(text,label){let ok=false;try{await navigator.clipboard.writeText(text);ok=true;}catch(e){}
-    $('mCopied').textContent=ok?'// '+label+' copied':'// could not copy automatically: '+text;}
-  $('mCopyMsg').onclick=()=>mCopy(mMsg,'message');
-  $('mCopyTo').onclick=()=>mCopy(MAIL_TO,'address');
+    $('mCopied').textContent=ok?T('// {0} copied',label):T('// could not copy automatically: {0}',text);}
+  $('mCopyMsg').onclick=()=>mCopy(mMsg,T('message'));
+  $('mCopyTo').onclick=()=>mCopy(MAIL_TO,T('address'));
   $('mClose').onclick=closeMail;$('mCancel').onclick=closeMail;$('mDone').onclick=closeMail;
   mail.addEventListener('click',e=>{if(e.target===mail)closeMail();});
   mail.addEventListener('keydown',e=>{
@@ -380,10 +388,10 @@
     function show(c){
       const d=new Date(c.date);
       document.getElementById('stampDate').dateTime=c.date;
-      document.getElementById('stampDate').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase()+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' '+(Intl.DateTimeFormat().resolvedOptions().timeZone||'');
-      document.getElementById('stampSha').textContent='COMMIT '+c.sha.slice(0,7);
+      document.getElementById('stampDate').textContent=d.toLocaleDateString(LOCALE,{day:'numeric',month:'short',year:'numeric'}).toUpperCase()+' '+d.toLocaleTimeString(LOCALE,{hour:'2-digit',minute:'2-digit'})+' '+(Intl.DateTimeFormat().resolvedOptions().timeZone||'');
+      document.getElementById('stampSha').textContent=T('COMMIT {0}',c.sha.slice(0,7));
       const a=document.getElementById('stampLink'); a.href=c.url; a.title=c.msg;
-      a.setAttribute('aria-label','Last signal: '+document.getElementById('stampDate').textContent+', '+document.getElementById('stampSha').textContent);
+      a.setAttribute('aria-label',T('Last signal: {0}, {1}',document.getElementById('stampDate').textContent,document.getElementById('stampSha').textContent));
       el.hidden=false;
       if(reduce) return;
       prime();
@@ -407,7 +415,7 @@
       grab().forEach(s=>{
         let h='';
         for(const ch of s.t){
-          const live=/[A-Z0-9]/.test(ch), i=k++;
+          const live=/[\p{L}\p{N}]/u.test(ch), i=k++;
           h+= !live||tick>=at[i] ? ch : '<i class="u">'+CH[Math.random()*CH.length|0]+'</i>';
         }
         s.e.innerHTML=h;
@@ -445,8 +453,8 @@
     const play=m.querySelector('.m-play'), frame=document.getElementById('musicFrame'), sub=document.getElementById('musicSub');
     const embed=m.dataset.embed||'';
     const ok=/^https:\/\/open\.spotify\.com\/embed\/(playlist|album|artist|track|show|episode)\/[A-Za-z0-9]+(\?[\w=&%-]*)?$/.test(embed);
-    if(ok){ sub.textContent='// my playlist: click to load the Spotify player';
-      play.title='Play my playlist (nothing loads from Spotify until you click)'; }
+    if(ok){ sub.textContent=T('// my playlist: click to load the Spotify player');
+      play.title=T('Play my playlist (nothing loads from Spotify until you click)'); }
     play.addEventListener('mouseenter',()=>m.classList.add('playing'));
     play.addEventListener('mouseleave',()=>m.classList.remove('playing'));
     play.addEventListener('click',e=>{
@@ -462,6 +470,11 @@
       frame.textContent=''; frame.append(f,x,document.createTextNode(' '),o); frame.hidden=false; m.classList.add('open','playing');
     });
   })();
+  /* ---------- language menu: close on outside click or Escape ---------- */
+  (function(){const d=document.querySelector('.lang');if(!d)return;
+    document.addEventListener('click',e=>{if(d.open&&!d.contains(e.target))d.open=false;});
+    d.addEventListener('keydown',e=>{if(e.key==='Escape'&&d.open){d.open=false;d.querySelector('summary').focus();e.stopPropagation();}});})();
+
   /* ---------- printing: open every <details> so the full text is on paper, then put them back ---------- */
   (function(){
     const was=new Set();

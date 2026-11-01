@@ -9,7 +9,9 @@ resume.json is the single source of truth for the CV facts. Run this after editi
 It rewrites:
   llms-full.txt   the whole profile as plain Markdown (generated in full)
   sitemap.xml     the page URL with meta.lastModified as lastmod
-  index.html      only these parts of the JSON-LD block in the <head>:
+  <code>/index.html  one page per published language (fr/, es/, ...), generated from the English
+                  index.html plus i18n/<code>.json (see scripts/i18n.py and the README)
+  index.html      the language menu and hreflang block, and only these parts of the JSON-LD block in the <head>:
                     - ProfilePage.dateModified
                     - Person.hasCredential (degrees are kept, certificates come from resume.json)
                     - the ScholarlyArticle nodes (from publications)
@@ -21,6 +23,9 @@ import json
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import i18n  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://www.kevin-bish.com/"
@@ -91,13 +96,20 @@ def llms_full(d):
 
 
 # ---------------------------------------------------------------- sitemap.xml
-def sitemap(d):
+def sitemap(d, langs):
+    alts = "".join(
+        f'\n    <xhtml:link rel="alternate" hreflang="{l["code"]}" href="{i18n.page_url(l["code"])}"/>' for l in langs
+    ) + f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}"/>'
+    rows = "".join(
+        f"  <url>\n    <loc>{i18n.page_url(l['code'])}</loc>\n    <lastmod>{d['meta']['lastModified']}</lastmod>"
+        f"\n    <changefreq>monthly</changefreq>\n    <priority>{'1.0' if l['code'] == 'en' else '0.8'}</priority>"
+        + (alts if len(langs) > 1 else "") + "\n  </url>\n"
+        for l in langs
+    )
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"  <url><loc>{SITE}</loc><lastmod>{d['meta']['lastModified']}</lastmod>"
-        "<changefreq>monthly</changefreq><priority>1.0</priority></url>\n"
-        "</urlset>\n"
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + rows + "</urlset>\n"
     )
 
 
@@ -146,15 +158,43 @@ def index_html(d):
     return html[: m.start(2)] + new_ld + html[m.end(2):]
 
 
+def enabled_languages():
+    return [l for l in i18n.load_languages() if l.get("enabled")]
+
+
+# ---------------------------------------------------------------- translation report
+def i18n_report():
+    english = (ROOT / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "js" / "main.js").read_text(encoding="utf-8")
+    for l in i18n.load_languages():
+        if l["code"] == "en":
+            continue
+        c = i18n.coverage(english, js, l["code"])
+        done_h = c["html_total"] - len(c["html_missing"])
+        done_j = c["js_total"] - len(c["js_missing"])
+        print(f"{l['code']} ({l['name']}){' [published]' if l.get('enabled') else ''}: page {done_h}/{c['html_total']}, scripts {done_j}/{c['js_total']}")
+        if "--verbose" in sys.argv[1:]:
+            for k in c["html_missing"] + c["js_missing"]:
+                print("   missing:", k[:110])
+
+
 # ---------------------------------------------------------------- main
 def main():
     check = "--check" in sys.argv[1:]
     d = load()
+    langs = enabled_languages()
+    if "--i18n-report" in sys.argv[1:]:
+        return i18n_report()
+    english = i18n.with_generated(index_html(d), langs, "en", 0)
+    js_keys = i18n.collect_js((ROOT / "js" / "main.js").read_text(encoding="utf-8"))
     outputs = {
         "llms-full.txt": llms_full(d),
-        "sitemap.xml": sitemap(d),
-        "index.html": index_html(d),
+        "sitemap.xml": sitemap(d, langs),
+        "index.html": english,
     }
+    for l in langs:
+        if l["code"] != "en":
+            outputs[f"{l['code']}/index.html"] = i18n.build_page(english, langs, l["code"], i18n.load_lang(l["code"]), js_keys)
     stale = []
     for name, text in outputs.items():
         path = ROOT / name
@@ -162,6 +202,7 @@ def main():
         if current != text:
             stale.append(name)
             if not check:
+                path.parent.mkdir(exist_ok=True)
                 path.write_text(text, encoding="utf-8")
     if check:
         if stale:
