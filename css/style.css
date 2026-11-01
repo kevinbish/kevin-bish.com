@@ -435,3 +435,54 @@ html[lang="ar"]{--sans:"Open Sans","Segoe UI","Noto Sans Arabic","Geeza Pro",Tah
 html[lang="ar"] *{letter-spacing:0!important}   /* letter-spacing breaks Arabic letter joining */
 html[lang="zh"] .entry .pos,html[lang="zh"] .name .first{letter-spacing:.06em}
 #gStart .code .cm{display:block}
+
+/* bat cursor: a small bat that trails the mouse (fine pointers only; the real cursor stays for text fields and embedded players) */
+.cur,.cur-dot{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .2s}
+.cur{width:38px;height:17px;color:#ffe28c;filter:drop-shadow(0 0 6px rgba(255,226,140,.8));will-change:transform}
+.cur svg{width:100%;height:100%;fill:currentColor;display:block;transition:transform .2s}
+.cur-dot{width:6px;height:6px;border-radius:50%;background:#ffe28c;box-shadow:0 0 8px rgba(255,226,140,.9);will-change:transform}
+html.cur-on .cur,html.cur-on .cur-dot{opacity:1}
+html.cur-text .cur,html.cur-text .cur-dot{opacity:0}
+html.cur-hot .cur svg{transform:scale(1.55)}
+html.cur-hot .cur-dot{opacity:0}
+html.cur-down .cur svg{transform:scale(.8)}
+:root[data-theme="light"] .cur{color:#1b1b1b;filter:drop-shadow(0 0 5px rgba(232,160,40,.95))}
+:root[data-theme="light"] .cur-dot{background:#e8a028;box-shadow:0 0 8px rgba(232,160,40,.9)}
+html.cur-on:not(.cur-text),html.cur-on:not(.cur-text) *{cursor:none!important}
+@media (hover:none),(pointer:coarse),print{.cur,.cur-dot{display:none!important}}
+
+/* GitHub activity: a bat-signal heatmap */
+.gh{--s:12px;--g:3px;position:relative}
+.gh-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin:0 0 18px;min-height:1.75em}
+@media (max-width:560px){.gh-stats{grid-template-columns:1fr}}
+@media (min-width:900px){.gh{--s:16px}}
+.gh-scroll{overflow-x:auto;padding:4px 2px 10px;-webkit-overflow-scrolling:touch}
+.gh-wrap{width:max-content;min-width:100%}
+.gh-months{display:grid;grid-auto-flow:column;grid-auto-columns:var(--s);column-gap:var(--g);margin:0 0 6px 34px;height:14px;font:11px/14px var(--mono);color:var(--muted);position:relative}
+.gh-months span{white-space:nowrap;grid-row:1}
+.gh-body{display:flex;gap:6px}
+.gh-days{display:grid;grid-template-rows:repeat(7,var(--s));row-gap:var(--g);width:28px;flex:none;font:10px/var(--s) var(--mono);color:var(--muted);text-align:right}
+.gh-grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,var(--s));grid-auto-columns:var(--s);gap:var(--g)}
+.d{display:block;width:var(--s);height:var(--s);border-radius:2px;background:var(--lv0)}
+.gh{--lv0:#363636;--lv1:#5f5530;--lv2:#94822f;--lv3:#d2b43a;--lv4:#ffe28c}
+:root[data-theme="light"] .gh{--lv0:#e4e9ee;--lv1:#f4e6a8;--lv2:#f0cb55;--lv3:#e2a416;--lv4:#c27a00}
+.d.lv1{background:var(--lv1)}.d.lv2{background:var(--lv2)}.d.lv3{background:var(--lv3)}
+.d.lv4{background:var(--lv4);box-shadow:0 0 9px rgba(255,226,140,.75)}
+:root[data-theme="light"] .d.lv4{box-shadow:0 0 8px rgba(232,160,40,.7)}
+.d.x{background:transparent;box-shadow:none}
+.gh-grid .d{opacity:0}
+.gh-grid.on .d{opacity:1;animation:ghin .45s ease-out both;animation-delay:calc(var(--c) * 9ms)}
+.gh-grid .d:not(.x):hover{outline:1px solid var(--head);outline-offset:1px}
+@keyframes ghin{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.gh-foot{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between;margin-top:6px}
+.gh-legend{display:flex;align-items:center;gap:4px;font:11px var(--mono)}
+.gh-legend .cm{margin:0 4px}
+.gh .go{font:500 13px var(--mono);color:var(--head);text-decoration:none}
+.gh .go:hover{text-decoration:underline}
+.gh-msg{margin:6px 0 0;font:12.5px var(--mono)}
+.gh-msg[hidden]{display:none}
+.gh-tip{position:absolute;z-index:5;pointer-events:none;padding:5px 9px;font:12px var(--mono);color:var(--fg);background:var(--bar);border:1px solid var(--head);white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.gh-tip[hidden]{display:none}
+.gh.gh-fail .gh-scroll,.gh.gh-fail .gh-stats,.gh.gh-fail .gh-legend{display:none}
+@media (prefers-reduced-motion:reduce){.gh-grid.on .d{animation:none}}
+@media print{#activity{display:none!important}}
