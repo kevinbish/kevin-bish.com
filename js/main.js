@@ -393,19 +393,21 @@
     const play=m.querySelector('.m-play'), frame=document.getElementById('musicFrame'), sub=document.getElementById('musicSub');
     const embed=m.dataset.embed||'';
     const ok=/^https:\/\/open\.spotify\.com\/embed\/(playlist|album|artist|track|show|episode)\/[A-Za-z0-9]+(\?[\w=&%-]*)?$/.test(embed);
-    if(ok){ sub.textContent='// one of my favourites: click to load the Spotify player';
-      play.title='Play a favourite track (nothing loads from Spotify until you click)'; }
+    if(ok){ sub.textContent='// my playlist: click to load the Spotify player';
+      play.title='Play my playlist (nothing loads from Spotify until you click)'; }
     play.addEventListener('mouseenter',()=>m.classList.add('playing'));
     play.addEventListener('mouseleave',()=>m.classList.remove('playing'));
     play.addEventListener('click',e=>{
       if(!ok) return;                       /* no embed configured: the link opens the Spotify profile */
       e.preventDefault();
       const f=document.createElement('iframe');
-      f.src=embed; f.title='Spotify player'; f.loading='lazy';
+      f.src=embed; f.title='Spotify player'; f.height='352'; f.setAttribute('allowfullscreen','');
       f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
       const x=document.createElement('button'); x.type='button'; x.className='m-close'; x.textContent='close_player();';
       x.addEventListener('click',()=>{frame.hidden=true; frame.textContent=''; m.classList.remove('open','playing'); play.focus();});
-      frame.textContent=''; frame.append(f,x); frame.hidden=false; m.classList.add('open','playing');
+      /* fallback in case the embedded player does not load in a visitor's browser */
+      const o=document.createElement('a'); o.className='m-close'; o.href=m.dataset.open||m.dataset.profile; o.target='_blank'; o.rel='noopener'; o.textContent='open_in_spotify();';
+      frame.textContent=''; frame.append(f,x,document.createTextNode(' '),o); frame.hidden=false; m.classList.add('open','playing');
     });
   })();
 })();
