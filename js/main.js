@@ -393,7 +393,8 @@
     const play=m.querySelector('.m-play'), frame=document.getElementById('musicFrame'), sub=document.getElementById('musicSub');
     const embed=m.dataset.embed||'';
     const ok=/^https:\/\/open\.spotify\.com\/embed\/(playlist|album|artist|track|show|episode)\/[A-Za-z0-9]+(\?[\w=&%-]*)?$/.test(embed);
-    if(ok) sub.textContent='// loads the Spotify player when you click';
+    if(ok){ sub.textContent='// one of my favourites: click to load the Spotify player';
+      play.title='Play a favourite track (nothing loads from Spotify until you click)'; }
     play.addEventListener('mouseenter',()=>m.classList.add('playing'));
     play.addEventListener('mouseleave',()=>m.classList.remove('playing'));
     play.addEventListener('click',e=>{
