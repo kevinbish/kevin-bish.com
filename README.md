@@ -53,13 +53,13 @@ except the optional GitHub call for the footer "last signal" stamp.
 3. Upload the contents of this folder (not the folder itself) so `index.html` sits at the root.
 4. Visit https://www.kevin-bish.com and hard-refresh (Ctrl/Cmd + Shift + R).
 
-### Option 2: GitHub Pages (free, github.com/exiax)
-1. Create a repository, e.g. `exiax/kevin-bish.com`.
+### Option 2: GitHub Pages (free, github.com/kevinbish)
+1. Create a repository, e.g. `kevinbish/kevin-bish.com`.
 2. Upload these files to the `main` branch (drag and drop in the GitHub web UI works).
 3. Settings → Pages → Source: "Deploy from a branch" → `main` / root → Save.
-4. The site goes live at `https://exiax.github.io/kevin-bish.com/` within a minute or two.
+4. The site goes live at `https://kevinbish.github.io/kevin-bish.com/` within a minute or two.
 5. Custom domain: in Settings → Pages enter `www.kevin-bish.com`, then at your DNS provider add a
-   CNAME record `www` → `exiax.github.io`. Tick "Enforce HTTPS" once it appears.
+   CNAME record `www` → `kevinbish.github.io`. Tick "Enforce HTTPS" once it appears.
 
 ### Option 3: Netlify or Cloudflare Pages (free, drag and drop)
 - Netlify: app.netlify.com → "Add new site" → "Deploy manually" → drag this folder in.
