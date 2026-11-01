@@ -19,6 +19,7 @@
     heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z"/>',
     term:'<path d="M4 6l6 6-6 6M12.5 18H20"/>',
     music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+    mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
     aperture:'<circle cx="12" cy="12" r="9"/><path d="M12 3l3.5 6M21 12h-7M16.5 19.8L13 14M7.5 19.8L11 14M3 12h7M7.5 4.2L11 10"/>',
     camera:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6"/>',
     people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c3 .2 5 2.6 5 5.8"/>'
@@ -254,7 +255,7 @@
   };
   const CMDS={
     help(){[['help','this list'],['whoami','who is this?'],['ls [experience]','list sections or roles'],['cat <file>','read about.txt, now.txt, featured.txt, locode.txt, contact.txt, skills.json'],
-      ['cd <section>','jump to a section'],['locode <CODE>','look up a code, e.g. locode NLRTM'],['play','start LOCODE Hunter'],['signal','light the sky'],
+      ['cd <section>','jump to a section'],['locode <CODE>','look up a code, e.g. locode NLRTM'],['play','start LOCODE Hunter'],['mail','write Kevin a message'],['signal','light the sky'],
       ['social','all of Kevin\'s links'],['theme light|dark','switch mode'],['date','current date and time'],['echo <text>','print text'],['history','previous commands'],['clear','clear the screen'],['exit','close the terminal']]
       .forEach(([c,d])=>line(c.padEnd(18)+d));line("…and maybe a sudo command or two.",'o');},
     whoami(){line('Kevin Bishop','hl');line('UN/LOCODE & UN/EDIFACT Secretary · UNECE / UN/CEFACT · Geneva (via Barbados)');},
@@ -269,6 +270,7 @@
       else if(/^[A-Z]{2}[A-Z2-9]{3}$/.test(c))line(c+' is a valid-looking code, but not in this page\'s demo set. The full code list (116,000+ entries) is published by UNECE.');
       else line('locode: "'+c+'" is not a code. Format: 2-letter country + 3-character place, e.g. BBBGI','err');},
     play(){line('launching locode_hunter.exe…','ok');setTimeout(openGame,300);},
+    mail(){line('opening compose_message()…','ok');setTimeout(openMail,300);},
     signal(){line('signal.lit = true;','ok');closeTerm();scrollTo({top:0,behavior:reduce?'auto':'smooth'});setTimeout(()=>lightSignal(true),reduce?0:450);},
     theme(a){const v=(a[0]||'').toLowerCase();if(v==='day'||v==='light'){setMode(true);line('theme = "light";','ok');}else if(v==='night'||v==='dark'){setMode(false);line('theme = "dark";','ok');}else line('usage: theme light | theme dark','err');},
     date(){line(new Date().toString());},
@@ -283,7 +285,7 @@
     batman(){line("I'm not saying Kevin is Batman. I'm saying nobody has seen them in the same room.",'hl');},
     rm(a){line(a.join(' ').includes('-rf')?'rm: permission denied. The codes stay up.':'rm: permission denied','err');}
   };
-  CMDS.locate=CMDS.locode;CMDS.man=CMDS.help;CMDS['?']=CMDS.help;
+  CMDS.message=CMDS.mail;CMDS.contact=CMDS.mail;CMDS.locate=CMDS.locode;CMDS.man=CMDS.help;CMDS['?']=CMDS.help;
   function run(raw){const v=raw.trim();line(v,'cmd');if(!v)return;hist.push(v);hi=hist.length;
     const [c,...a]=v.split(/\s+/),fn=CMDS[c.toLowerCase()];if(fn)fn(a);else line(c+': command not found. Type \'help\'.','err');}
   $('tForm').addEventListener('submit',e=>{e.preventDefault();run(tIn.value);tIn.value='';});
@@ -307,9 +309,59 @@
     const end=()=>{drag=false;term.classList.remove('dragging');};g.addEventListener('pointerup',end);g.addEventListener('pointercancel',end);})();
   $('openTerm').onclick=()=>term.hidden||termState()==='min'?openTerm():closeTerm();
 
+  /* ---------- compose_message(): a console that builds a ready-to-send email (mailto) ---------- */
+  const mail=$('mail'),mForm=$('mForm'),mNames=['mName','mEmail','mSubject','mBody'];
+  /* the address is assembled here so it is not sitting in the page text for scrapers */
+  const MAIL_TO=['kevin.bish','live.com'].join('@');
+  let mOpenedAt=0,mFocusBack=null,mSent=false,mMsg='';
+  const mErr=$('mErr');
+  function mReset(){mForm.reset();mErr.textContent='';$('mCompose').hidden=false;$('mSent').hidden=true;$('mAfter').hidden=true;$('mCopied').textContent='';$('mLog').innerHTML='';mail.firstElementChild.classList.remove('sending');mSent=false;}
+  function openMail(){mFocusBack=document.activeElement;closeTerm();mReset();mail.hidden=false;mOpenedAt=Date.now();$('mName').focus();}
+  function closeMail(){mail.hidden=true;if(mFocusBack&&mFocusBack.focus)mFocusBack.focus();}
+  const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+  async function mLine(text,cls){const d=document.createElement('div');if(cls)d.className=cls;$('mLog').append(d);
+    if(reduce){d.textContent=text;return;}
+    for(let i=1;i<=text.length;i++){d.textContent=text.slice(0,i);await wait(14);}}
+  mForm.addEventListener('submit',async e=>{
+    e.preventDefault();if(mSent)return;
+    const name=$('mName').value.trim(),email=$('mEmail').value.trim(),subj=$('mSubject').value.trim(),body=$('mBody').value.trim();
+    mErr.textContent='';
+    if(!name){mErr.textContent='// name is required';$('mName').focus();return;}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){mErr.textContent='// that reply_to does not look like an email address';$('mEmail').focus();return;}
+    if(body.length<5){mErr.textContent='// say a little more in the body';$('mBody').focus();return;}
+    mSent=true;
+    /* trap field and timing: for bots. A real visitor needs more than a couple of seconds to fill this in. */
+    const bot=$('mTrap').value!==''||Date.now()-mOpenedAt<2500;
+    $('mCompose').hidden=true;$('mSent').hidden=false;mail.firstElementChild.classList.add('sending');
+    await mLine('> validating message… ok','ok');
+    await mLine('> encrypting signal… ok','ok');
+    mMsg=body+'\n\n— '+name+(email?' <'+email+'>':'');
+    if(bot){await mLine('> signal dropped.');mail.firstElementChild.classList.remove('sending');$('mAfter').hidden=false;return;}
+    await mLine('> opening your mail app…','hl');
+    const a=document.createElement('a');
+    a.href='mailto:'+MAIL_TO+'?subject='+encodeURIComponent(subj||'Message from kevin-bish.com')+'&body='+encodeURIComponent(mMsg);
+    document.body.append(a);a.click();a.remove();
+    await wait(500);
+    mail.firstElementChild.classList.remove('sending');
+    await mLine('// if your mail app did not open, copy the message and the address and send it from any email.');
+    $('mAfter').hidden=false;$('mCopyMsg').focus();});
+  async function mCopy(text,label){let ok=false;try{await navigator.clipboard.writeText(text);ok=true;}catch(e){}
+    $('mCopied').textContent=ok?'// '+label+' copied':'// could not copy automatically: '+text;}
+  $('mCopyMsg').onclick=()=>mCopy(mMsg,'message');
+  $('mCopyTo').onclick=()=>mCopy(MAIL_TO,'address');
+  $('mClose').onclick=closeMail;$('mCancel').onclick=closeMail;$('mDone').onclick=closeMail;
+  mail.addEventListener('click',e=>{if(e.target===mail)closeMail();});
+  mail.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){e.stopPropagation();closeMail();return;}
+    if(e.key==='Tab'){const f=[...mail.querySelectorAll('button,input:not(.trap),textarea,a[href]')].filter(x=>!x.hidden&&x.offsetParent!==null);
+      if(!f.length)return;const first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
+  });
+
   /* hero action links */
   document.querySelectorAll('.act').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.act;
-    if(a==='play')openGame();else if(a==='signal')lightSignal(true);else openTerm();}));
+    if(a==='play')openGame();else if(a==='signal')lightSignal(true);else if(a==='mail')openMail();else openTerm();}));
 
   /* global keys */
   document.addEventListener('keydown',e=>{
@@ -409,5 +461,14 @@
       const o=document.createElement('a'); o.className='m-close'; o.href=m.dataset.open||m.dataset.profile; o.target='_blank'; o.rel='noopener'; o.textContent='open_in_spotify();';
       frame.textContent=''; frame.append(f,x,document.createTextNode(' '),o); frame.hidden=false; m.classList.add('open','playing');
     });
+  })();
+  /* ---------- printing: open every <details> so the full text is on paper, then put them back ---------- */
+  (function(){
+    const was=new Set();
+    const open=()=>document.querySelectorAll('details:not([open])').forEach(d=>{was.add(d);d.open=true;});
+    const restore=()=>{was.forEach(d=>{d.open=false;});was.clear();};
+    addEventListener('beforeprint',open);addEventListener('afterprint',restore);
+    const mq=matchMedia('print');
+    if(mq.addEventListener) mq.addEventListener('change',e=>e.matches?open():restore());
   })();
 })();

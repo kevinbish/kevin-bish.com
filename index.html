@@ -395,6 +395,12 @@
   <link rel="preload" href="fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/fira-code-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
+  <noscript><style>
+    /* with scripts off: hide the controls that need them; the text, details toggles and links all still work */
+    .tools,.mode,#fs,#moon,.filters,.brief,.js-only,#toTop,.cursor,#gutter{display:none!important}
+    #skills .lede,.avatar .cm{display:none}
+    body{padding-left:0}
+  </style></noscript>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -437,9 +443,9 @@
         <span class="l"> </span>
         <span class="l"><b class="kw">var</b> <a href="#skills">skills</a>, <a href="#experience">experience</a>, <a href="#education">education</a>, <a href="#projects">projects</a>, <a href="#ict">ict</a>, <a href="#publications">publications</a>, <a href="#honours">honours</a>, <a href="#featured">featured</a>, <a href="#additional">volunteerism</a> = 1;</span>
         <span class="l"> </span>
-        <span class="l"><b class="kw">run</b>(<button class="act" data-act="play">locode_hunter</button>); <span class="cm">// mini-game: name the port</span></span>
-        <span class="l"><b class="kw">signal</b>(<button class="act" data-act="signal">"gotham"</button>); <span class="cm">// or click the moon</span></span>
-        <span class="l"><b class="kw">open</b>(<button class="act" data-act="term">terminal</button>); <span class="cm">// or press ~</span><span class="cursor">|</span></span>
+        <span class="l js-only"><b class="kw">run</b>(<button class="act" data-act="play">locode_hunter</button>); <span class="cm">// mini-game: name the port</span></span>
+        <span class="l js-only"><b class="kw">signal</b>(<button class="act" data-act="signal">"gotham"</button>); <span class="cm">// or click the moon</span></span>
+        <span class="l js-only"><b class="kw">open</b>(<button class="act" data-act="term">terminal</button>); <span class="cm">// or press ~</span><span class="cursor">|</span></span>
       </div>
     </div>
     <aside class="side">
@@ -458,6 +464,7 @@
           <span class="l" data-gi="people"><b class="v">facebook</b> = <a class="s" href="https://www.facebook.com/kevin.bishp/">"facebook.com/kevin.bishp"</a>;</span>
           <span class="l" data-gi="aperture"><b class="v">photography</b> = <a class="s" href="https://vsco.co/kevinbish/gallery">"vsco.co/kevinbish"</a>; <span class="cm">// travel shots</span></span>
           <span class="l" data-gi="music"><b class="v">spotify</b> = <a class="s" href="https://open.spotify.com/user/1212889341">"Kevin Bish"</a>; <span class="cm">// the soundtrack</span></span>
+          <span class="l js-only" data-gi="mail"><b class="v">message</b> = <button class="act" data-act="mail">compose_message()</button>; <span class="cm">// opens a console</span></span>
         </div>
         <div class="music" id="music" data-profile="https://open.spotify.com/user/1212889341" data-embed="https://open.spotify.com/embed/playlist/6jldxWiTkq4IpYxr8t6qOO?utm_source=generator&amp;theme=0" data-open="https://open.spotify.com/playlist/6jldxWiTkq4IpYxr8t6qOO">
           <a class="m-play" href="https://open.spotify.com/user/1212889341" target="_blank" rel="noopener" title="Open my Spotify profile (nothing loads from Spotify until you click)">
@@ -478,7 +485,14 @@
 <section id="skills"><div class="wrap">
   <h2><span class="cm">// what the work adds up to</span><svg data-gi="gauge"><use href="#bat"/></svg>Creative &amp; Professional Skills</h2>
   <p class="lede">The four circles from the résumé, now measuring the work. Select one to read the briefing.</p>
-  <div class="rings" id="rings"></div>
+  <div class="rings" id="rings">
+    <ul class="ring-list">
+      <li><b>116,000+ location codes.</b> More than 116,000 location codes kept accurate and published on schedule, used by customs systems, port community systems, maritime single windows, aviation networks and sustainability reporting worldwide.</li>
+      <li><b>5 UN standards.</b> UN/LOCODE, UN/EDIFACT, UN/CCL, UN/FLUX and the UN Recommendation code lists, maintained through Data Maintenance Requests submitted by experts worldwide.</li>
+      <li><b>5 ISO projects.</b> Five ISO projects, from the Trade Data Elements Directory and the Buy-Ship-Pay model to the DLT-based electronic bill of lading and the Digital Product Passport.</li>
+      <li><b>18+ years.</b> From IT intern at CIBC FirstCaribbean in 2008, through research for UNDP, teaching at UWI and ICT consulting in Barbados, to UN standards work in Geneva since 2021.</li>
+    </ul>
+  </div>
   <div class="brief" aria-live="polite">
     <div class="code"><span class="l"><b class="kw">console</b>.log(<span class="s" id="bK"></span>);</span></div>
     <p id="bP"></p>
@@ -899,6 +913,35 @@
         <p class="g-copied" id="gCopied" aria-live="polite"></p>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- COMPOSE MESSAGE -->
+<div class="overlay" id="mail" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="win mail">
+    <div class="win-bar">
+      <div class="lights"><button class="r" id="mClose" data-g="×" aria-label="Close message window" title="Close"></button><span class="y"></span><span class="gdot"></span></div>
+      <span class="win-title" id="mTitle">batcomputer — compose_message()</span>
+    </div>
+    <form class="win-body" id="mForm" novalidate autocomplete="off">
+      <div id="mCompose">
+        <svg class="sigoval" id="mOval" viewBox="0 0 64 36" aria-hidden="true"><ellipse cx="32" cy="18" rx="30" ry="16"/><use href="#bat" x="12" y="6" width="40" height="17"/></svg>
+        <div class="code"><span class="l cm">// send a signal to Kevin (Geneva, via Gotham).</span><span class="l cm">// it opens a ready-to-send email in your mail app.</span><span class="l"><b class="kw">const</b> <b class="v">message</b> = {</span></div>
+        <label class="mrow"><span class="mk">name:</span><input id="mName" name="name" type="text" maxlength="80" autocomplete="name" required aria-describedby="mErr"></label>
+        <label class="mrow"><span class="mk">reply_to:</span><input id="mEmail" name="email" type="email" maxlength="120" autocomplete="email" placeholder="optional"></label>
+        <label class="mrow"><span class="mk">subject:</span><input id="mSubject" name="subject" type="text" maxlength="120" placeholder="optional"></label>
+        <label class="mrow col"><span class="mk">body:</span><textarea id="mBody" name="body" rows="6" maxlength="1200" required aria-describedby="mErr"></textarea></label>
+        <input class="trap" id="mTrap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="code"><span class="l">};</span></div>
+        <p class="m-err" id="mErr" role="alert"></p>
+        <div class="g-row"><button class="g-btn" type="submit">send_signal();</button><button class="g-btn ghost" type="button" id="mCancel">cancel();</button></div>
+      </div>
+      <div id="mSent" hidden>
+        <div class="code m-log" id="mLog" aria-live="polite"></div>
+        <div class="g-row" id="mAfter" hidden><button class="g-btn" type="button" id="mCopyMsg">copy_message();</button><button class="g-btn ghost" type="button" id="mCopyTo">copy_address();</button><button class="g-btn ghost" type="button" id="mDone">close();</button></div>
+        <p class="g-copied" id="mCopied" aria-live="polite"></p>
+      </div>
+    </form>
   </div>
 </div>
 
