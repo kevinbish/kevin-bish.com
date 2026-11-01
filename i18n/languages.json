@@ -21,7 +21,7 @@
     "native": "Español",
     "locale": "es_ES",
     "dir": "ltr",
-    "enabled": false
+    "enabled": true
   },
   {
     "code": "ru",
@@ -29,7 +29,7 @@
     "native": "Русский",
     "locale": "ru_RU",
     "dir": "ltr",
-    "enabled": false
+    "enabled": true
   },
   {
     "code": "ar",
