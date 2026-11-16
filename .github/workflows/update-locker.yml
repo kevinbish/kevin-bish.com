@@ -1,0 +1,40 @@
+# Rebuilds the generated pages after every push to main, so files uploaded to files/ appear in the
+# Files & Documents section without running anything locally. It also catches edits made on GitHub's
+# website to index.html, the translations or resume.json. Pushes made by this workflow do not start it again.
+name: Update locker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-locker
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history, so each file's date is its last commit
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild generated pages
+        run: python3 scripts/build.py
+
+      - name: Commit and push if anything changed
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then echo "Nothing to update."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update generated pages (Files & Documents, translations, sitemap)"
+          git push

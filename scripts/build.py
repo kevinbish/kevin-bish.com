@@ -9,6 +9,7 @@ resume.json is the single source of truth for the CV facts. Run this after editi
 It rewrites:
   llms-full.txt   the whole profile as plain Markdown (generated in full)
   sitemap.xml     the page URL with meta.lastModified as lastmod
+  index.html      the Files & Documents listing (the locker block), built from files/ by scripts/locker.py
   <code>/index.html  one page per published language (fr/, es/, ...), generated from the English
                   index.html plus i18n/<code>.json (see scripts/i18n.py and the README)
   index.html      the language menu and hreflang block, and only these parts of the JSON-LD block in the <head>:
@@ -26,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import i18n  # noqa: E402
+import locker  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://www.kevin-bish.com/"
@@ -185,7 +187,7 @@ def main():
     langs = enabled_languages()
     if "--i18n-report" in sys.argv[1:]:
         return i18n_report()
-    english = i18n.with_generated(index_html(d), langs, "en", 0)
+    english = i18n.with_generated(locker.apply(index_html(d)), langs, "en", 0)
     js_keys = i18n.collect_js((ROOT / "js" / "main.js").read_text(encoding="utf-8"))
     outputs = {
         "llms-full.txt": llms_full(d),

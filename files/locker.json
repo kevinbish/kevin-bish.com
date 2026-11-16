@@ -1,0 +1,12 @@
+{
+  "descriptions": {
+    "papers/example-file.pdf": "Write a one-line description here. The key is the path inside files/."
+  },
+  "extra": [
+    {
+      "path": "docs/gscf2024-ntfc-outcome.pdf",
+      "folder": "papers",
+      "description": "Third Global Forum for NTFCs 2024: draft outcome document"
+    }
+  ]
+}

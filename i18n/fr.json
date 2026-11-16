@@ -264,7 +264,10 @@
   "A year of public GitHub activity, lit like the signal: the brighter the square, the busier the day.": "Un an d’activité publique sur GitHub, éclairée comme le signal : plus le carré est lumineux, plus la journée a été chargée.",
   "Less": "Moins",
   "More": "Plus",
-  "// loading the signal log…": "// chargement du journal du signal…"
+  "// loading the signal log…": "// chargement du journal du signal…",
+  "Files &amp; Documents": "Fichiers et documents",
+  "// the evidence locker": "// la salle des pièces à conviction",
+  "Papers, slides and reference documents, free to read and download. Everything in the locker is public.": "Articles, présentations et documents de référence, à lire et à télécharger librement. Tout ce qui se trouve ici est public."
  },
  "js": {
   "LOCATION CODES": "CODES DE LIEUX",
@@ -381,6 +384,12 @@
   "GitHub contribution graph: {0} contributions in the last year": "Graphique des contributions GitHub : {0} contributions sur la dernière année",
   "No contributions on {0}": "Aucune contribution le {0}",
   "1 contribution on {0}": "1 contribution le {0}",
-  "{0} contributions on {1}": "{0} contributions le {1}"
+  "{0} contributions on {1}": "{0} contributions le {1}",
+  "search the locker…": "rechercher dans les fichiers…",
+  "Search the files": "Rechercher dans les fichiers",
+  "// no files match. try another search.": "// aucun fichier ne correspond. essayez une autre recherche.",
+  "{0} files · {1}": "{0} fichiers · {1}",
+  "// last upload: {0}": "// dernier ajout : {0}",
+  "Download {0}": "Télécharger {0}"
  }
 }

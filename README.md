@@ -15,7 +15,9 @@ images/mascot.gif   pixel mascot from the original site
 images/og-card.png  1200x630 social share card (Open Graph / Twitter)
 favicon.svg         {KB} tab icon
 fonts/              self-hosted Open Sans, Fira Code and Bebas Neue (latin WOFF2) + LICENSES.md
-scripts/build.py    regenerates llms-full.txt, sitemap.xml and parts of the JSON-LD from resume.json
+scripts/build.py    regenerates llms-full.txt, sitemap.xml, parts of the JSON-LD, the Files & Documents list and the language pages
+scripts/locker.py   builds the Files & Documents list from files/
+files/              public files for the Files & Documents section (see files/README.md)
 robots.txt          lets search engines and AI crawlers in; points to the sitemap
 sitemap.xml         the page URL for search engines
 llms.txt            short Markdown profile for AI assistants (llmstxt.org convention); hand-written
@@ -86,6 +88,15 @@ writes `window.I18N` into each translated page for the strings that live in `js/
 The "compose_message()" link in Contact Me, and the `mail` terminal command both open one popup (`#mail` in `index.html`, logic in `js/main.js`).
 It builds a ready-to-send email and opens it in the visitor's mail app (a `mailto:` link) addressed to the address in `MAIL_TO` near the top of that code. The address is assembled in JavaScript so it is not in the page text, and the form carries an invisible trap field and a minimum-time check for when a sending service is added later. Nothing is sent from the server, so there is no delivery to monitor; a visitor with no mail app gets copy buttons instead.
 To change the address, edit `MAIL_TO` in `js/main.js`.
+
+## Files & Documents (the evidence locker)
+
+Anything in `files/` is listed in the **Files & Documents** section and can be downloaded by anyone. Upload on GitHub
+(**Add file → Upload files** inside `files/` or a folder in it) and commit to `main`; the **Update locker** GitHub Action
+(`.github/workflows/update-locker.yml`) runs `scripts/build.py`, commits the refreshed pages and Plesk deploys them.
+Descriptions and extra files from elsewhere in the repo go in `files/locker.json`; `files/README.md` has the steps.
+The Action also rebuilds after any other push to `main`, so edits made on GitHub's website stay in sync.
+If it fails with a permissions error, set **Settings → Actions → General → Workflow permissions** to *Read and write*.
 
 ## Bat cursor and GitHub activity
 

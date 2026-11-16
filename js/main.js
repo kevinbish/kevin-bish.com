@@ -236,7 +236,7 @@
 
   /* ================= TERMINAL ================= */
   const term=$('term'),tOut=$('tOut'),tIn=$('tIn');let hist=[],hi=0,termOpened=false;
-  const SECTIONS=['skills','experience','education','projects','activity','ict','publications','honours','featured','additional'];
+  const SECTIONS=['skills','experience','education','projects','activity','ict','publications','honours','featured','files','additional'];
   function line(txt,cls){const d=document.createElement('div');d.className=cls||'o';d.textContent=txt;tOut.appendChild(d);tOut.scrollTop=tOut.scrollHeight;return d;}
   function setTermState(st2){term.classList.toggle('min',st2==='min');term.classList.toggle('max',st2==='max');
     $('tState').textContent=st2==='min'?T('minimised · click to restore'):st2==='max'?T('maximised'):'';
@@ -536,6 +536,25 @@
     }
     try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s&&Date.now()-s.t<TTL){render(s.d);return;}}catch(e){}
     fetch(API).then(r=>r.ok?r.json():Promise.reject()).then(d=>{try{sessionStorage.setItem(KEY,JSON.stringify({t:Date.now(),d}));}catch(e){}render(d);}).catch(fail);
+  })();
+
+  /* ---------- Files & Documents: search, type and folder filters for the evidence locker ---------- */
+  (function(){
+    const fx=$('fx');if(!fx)return;
+    const rows=[...fx.querySelectorAll('#fxRows tr[data-type]')],q=$('fxQ'),empty=$('fxEmpty');
+    let folder='all',type='all',term='';
+    q.placeholder=T('search the locker…');q.setAttribute('aria-label',T('Search the files'));
+    empty.textContent=T('// no files match. try another search.');
+    $('fxState').textContent=T('{0} files · {1}',fx.dataset.count,fx.dataset.size);
+    const last=$('fxLast');
+    if(last)last.textContent=T('// last upload: {0}',new Date(last.dataset.date+'T00:00:00').toLocaleDateString(LOCALE,{day:'numeric',month:'short',year:'numeric'}));
+    fx.querySelectorAll('time[datetime]').forEach(t=>{t.textContent=new Date(t.getAttribute('datetime')+'T00:00:00').toLocaleDateString(LOCALE,{day:'numeric',month:'short',year:'numeric'});});
+    fx.querySelectorAll('.fx-get').forEach(a=>a.setAttribute('aria-label',T('Download {0}',a.closest('tr').querySelector('.fx-name a').textContent)));
+    function apply(){let n=0;rows.forEach(r=>{const ok=(folder==='all'||r.dataset.folder===folder)&&(type==='all'||r.dataset.type===type)&&(!term||r.textContent.toLowerCase().includes(term));r.hidden=!ok;if(ok)n++;});empty.hidden=n>0||!rows.length;}
+    const group=(sel,set)=>{const bs=[...fx.querySelectorAll(sel)];bs.forEach(b=>b.addEventListener('click',()=>{bs.forEach(x=>x.setAttribute('aria-pressed',x===b));set(b);apply();}));};
+    group('.fx-tree button',b=>{folder=b.dataset.f;});
+    group('.fx-chips button',b=>{type=b.dataset.t;});
+    q.addEventListener('input',()=>{term=q.value.trim().toLowerCase();apply();});
   })();
 
   /* ---------- language menu: close on outside click or Escape ---------- */
