@@ -165,9 +165,9 @@ def walk_units(root, visit):
     def rec(n):
         if n.text is not None:
             if n.text.startswith("<!--"):
-                if LANG_START in n.text or HEAD_START in n.text:
+                if LANG_START in n.text or HEAD_START in n.text or "locker:start" in n.text:
                     in_generated[0] = True
-                elif LANG_END in n.text or HEAD_END in n.text:
+                elif LANG_END in n.text or HEAD_END in n.text or "locker:end" in n.text:
                     in_generated[0] = False
             return
         if in_generated[0]:

@@ -264,7 +264,10 @@
   "A year of public GitHub activity, lit like the signal: the brighter the square, the busier the day.": "Год публичной активности на GitHub, освещённый, как сигнал: чем ярче квадрат, тем насыщеннее был день.",
   "Less": "Меньше",
   "More": "Больше",
-  "// loading the signal log…": "// загрузка журнала сигнала…"
+  "// loading the signal log…": "// загрузка журнала сигнала…",
+  "Files &amp; Documents": "Файлы и документы",
+  "// the evidence locker": "// хранилище улик",
+  "Papers, slides and reference documents, free to read and download. Everything in the locker is public.": "Статьи, презентации и справочные документы, которые можно свободно читать и скачивать. Всё, что здесь хранится, открыто для всех."
  },
  "js": {
   "LOCATION CODES": "КОДЫ МЕСТ",
@@ -381,6 +384,12 @@
   "GitHub contribution graph: {0} contributions in the last year": "График вклада на GitHub: вклад за последний год — {0}",
   "No contributions on {0}": "Вклад за {0}: 0",
   "1 contribution on {0}": "Вклад за {0}: 1",
-  "{0} contributions on {1}": "Вклад за {1}: {0}"
+  "{0} contributions on {1}": "Вклад за {1}: {0}",
+  "search the locker…": "поиск по файлам…",
+  "Search the files": "Поиск по файлам",
+  "// no files match. try another search.": "// ничего не найдено. попробуйте другой запрос.",
+  "{0} files · {1}": "файлов: {0} · {1}",
+  "// last upload: {0}": "// последняя загрузка: {0}",
+  "Download {0}": "Скачать {0}"
  }
 }
