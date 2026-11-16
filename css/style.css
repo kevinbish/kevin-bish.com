@@ -493,7 +493,7 @@ html.cur-on:not(.cur-text),html.cur-on:not(.cur-text) *{cursor:none!important}
 .fx-tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--rule)}
 .fx-search{display:flex;align-items:center;gap:10px;font:13px var(--mono);flex:1;min-width:min(100%,240px);max-width:380px;border-bottom:1px dashed var(--rule);padding:4px 2px}
 .fx-search:focus-within{border-color:var(--head)}
-.fx-search input{flex:1;min-width:0;font:13px var(--mono);background:transparent;border:0;outline:0;color:var(--str);caret-color:var(--head)}
+.fx-search input{-webkit-appearance:none;appearance:none;border-radius:0;padding:0;flex:1;min-width:0;font:13px var(--mono);background:transparent;border:0;outline:0;color:var(--str);caret-color:var(--head)}
 .fx-search input::placeholder{color:var(--cm);font-style:italic}
 .fx-chips{display:flex;flex-wrap:wrap;gap:6px}
 .fx-chips button{font:500 12px var(--mono);padding:5px 10px;border:1px solid var(--rule);background:transparent;color:var(--muted);cursor:pointer}
@@ -510,13 +510,14 @@ html.cur-on:not(.cur-text),html.cur-on:not(.cur-text) *{cursor:none!important}
 .fx-tree .fo{width:16px;height:13px;fill:none;stroke:var(--muted);stroke-width:1.6;stroke-linejoin:round;flex:none}
 .fx-tree button[aria-pressed="true"] .fo{stroke:#ffe28c;fill:color-mix(in srgb,#ffe28c 25%,transparent)}
 .fx-tree .bat{width:22px;height:10px;fill:#ffe28c;filter:drop-shadow(0 0 4px rgba(255,226,140,.6));flex:none}
-.fx-list-wrap{overflow-x:auto}
+.fx-list-wrap{overflow-x:auto;min-width:0}
 .fx-list{width:100%;border-collapse:collapse;font-size:14px}
 .fx-list th{font:500 11.5px var(--mono);color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);white-space:nowrap}
 .fx-list td{padding:10px 14px;border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent);vertical-align:middle}
-.fx-list tbody tr{transition:background .2s,box-shadow .2s}
-.fx-list tbody tr:hover{background:color-mix(in srgb,#ffe28c 7%,transparent);box-shadow:inset 3px 0 0 #ffe28c}
-.fx-name{display:flex;align-items:center;gap:12px;min-width:0}
+.fx-list tbody td{transition:background .2s,box-shadow .2s}
+.fx-list tbody tr:hover td{background:rgba(255,226,140,.07)}
+.fx-list tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 #ffe28c}
+.fx-n{display:flex;align-items:center;gap:12px;min-width:0}
 .fx-name a{font:500 13.5px var(--mono);color:var(--fg);text-decoration:none;overflow-wrap:anywhere}
 .fx-name a:hover{color:var(--head);text-decoration:underline}
 .fx-name small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
@@ -539,15 +540,24 @@ html.cur-on:not(.cur-text),html.cur-on:not(.cur-text) *{cursor:none!important}
   .fx-list,.fx-list tbody,.fx-list tr,.fx-list td{display:block;width:100%}
   .fx-list tr{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:12px 14px;border-bottom:1px solid var(--rule)}
   .fx-list td{padding:0;border:0}
-  .fx-list td.fx-name{grid-column:1/-1;display:flex;margin-bottom:4px}
+  .fx-list td.fx-name{grid-column:1/-1;margin-bottom:4px}
   .fx-list td:nth-child(2){display:flex;gap:10px;align-items:center}
   .fx-list td:nth-child(2){grid-column:1}
   .fx-list td:nth-child(3),.fx-list td:nth-child(4){display:inline;text-align:left}
   .fx-list td:nth-child(5){grid-column:2;grid-row:2;text-align:right}
 }
 .fx-name small:empty{display:none}
-@media print{.fx-tools,.fx-tree,.fx-status,.fx-get{display:none!important}.fx-body{display:block}.fx-list tbody tr:hover{background:none;box-shadow:none}}
+@media print{.fx-tools,.fx-tree,.fx-status,.fx-get{display:none!important}.fx-body{display:block}}
 :root[data-theme="light"] .fx-tree .bat{fill:#c27a00;filter:none}
 :root[data-theme="light"] .fx-tree button[aria-pressed="true"]{border-left-color:#c27a00}
 :root[data-theme="light"] .fx-tree button[aria-pressed="true"] .fo{stroke:#c27a00;fill:color-mix(in srgb,#c27a00 18%,transparent)}
-:root[data-theme="light"] .fx-list tbody tr:hover{background:color-mix(in srgb,#e8a028 8%,transparent);box-shadow:inset 3px 0 0 #c27a00}
+:root[data-theme="light"] .fx-list tbody tr:hover td{background:rgba(232,160,40,.08)}
+:root[data-theme="light"] .fx-list tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 #c27a00}
+.fx-search input::-webkit-search-decoration,.fx-search input::-webkit-search-cancel-button{-webkit-appearance:none}
+/* fallbacks for Safari before 16.2, which has no color-mix() */
+@supports not (background:color-mix(in srgb,red 50%,blue)){
+  .fx-tree{background:var(--bar)}
+  .fx-badge{border-color:var(--c)}
+  .fx-list td{border-bottom-color:var(--rule)}
+  .fx-tree button[aria-pressed="true"] .fo{fill:rgba(255,226,140,.25)}
+}

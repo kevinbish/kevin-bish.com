@@ -109,10 +109,10 @@ def render(items):
     chips = '<button type="button" data-t="all" aria-pressed="true">*.*</button>' + "".join(
         f'<button type="button" data-t="{e(t)}" aria-pressed="false">*.{e(t)}</button>' for t in types)
     rows = "\n".join(
-        f'        <tr data-folder="{e(i["folder"])}" data-type="{e(i["type"])}"><td class="fx-name">{icon(i["type"])}'
+        f'        <tr data-folder="{e(i["folder"])}" data-type="{e(i["type"])}"><td class="fx-name"><div class="fx-n">{icon(i["type"])}'
         f'<span><a href="{e(i["path"])}">{e(i["name"])}</a>'
         + (f'<small>{e(i["desc"])}</small>' if i["desc"] else "")
-        + f'</span></td><td><span class="fx-badge" style="--c:{COLOURS.get(i["type"], "#a9a9a9")}">.{e(i["type"])}</span></td>'
+        + f'</span></div></td><td><span class="fx-badge" style="--c:{COLOURS.get(i["type"], "#a9a9a9")}">.{e(i["type"])}</span></td>'
         f'<td class="fx-num">{e(i["size"])}</td><td class="fx-num"><time datetime="{i["date"]}">{nice_date(i["date"])}</time></td>'
         f'<td><a class="fx-get" href="{e(i["path"])}" download aria-label="Download {e(i["name"])}">get()<span aria-hidden="true"> ↓</span></a></td></tr>'
         for i in items)
